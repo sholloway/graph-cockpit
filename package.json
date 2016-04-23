@@ -1,0 +1,31 @@
+{
+  "name": "machine-desktop-gui",
+  "version": "0.1.0",
+  "description": "An Electron based fat client for working with graphs.",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sholloway/graph-cockpit.git"
+  },
+  "keywords": [
+    "Graph",
+    "notes",
+    "analysis"
+  ],
+  "author": "Samuel D. Holloway",
+  "license": "UNLICENSED",
+  "private": "true",
+  "bugs": {
+    "url": "https://github.com/sholloway/graph-cockpit/issues"
+  },
+  "homepage": "https://github.com/sholloway/graph-cockpit#readme",
+  "scripts":{
+    "start":"electron src/main.js"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^0.37.7"
+  }
+}
