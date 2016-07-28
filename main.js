@@ -23,7 +23,7 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({width: 800, height: 600});
 
   // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/public/index.html');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
@@ -36,20 +36,3 @@ app.on('ready', () => {
     mainWindow = null;
   });
 });
-
-/*
-The goal.
-* [X] Add License.
-* [ ] Electron, React, Webpack Hello World.
-* [ ] Create top level menu from React Component.
-* [ ] Window Naviagtion via React Routes.
-* [ ] Stub out all Menu Items.
-* [ ] Stub out all Windows & Flows.
-* [ ] Integrate with Engine Harness.
-* [ ] Build Authentication Flow.
-* [ ] Establish TLS between Cockpit & Engine
-
-Decisions to make.
-* [ ] Use a CSS Preprocessor
-* [ ] Leverage a UX framework.
-*/
