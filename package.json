@@ -4,7 +4,7 @@
   "description": "An Electron based fat client for working with graphs.",
   "main": "src/main.js",
   "scripts": {
-    "test": "test"
+    "start": "electron src/main.js"
   },
   "repository": {
     "type": "git",
@@ -16,16 +16,16 @@
     "analysis"
   ],
   "author": "Samuel D. Holloway",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": "true",
   "bugs": {
     "url": "https://github.com/sholloway/graph-cockpit/issues"
   },
   "homepage": "https://github.com/sholloway/graph-cockpit#readme",
-  "scripts":{
-    "start":"electron src/main.js"
-  },
   "devDependencies": {
-    "electron-prebuilt": "^0.37.7"
+    "electron-prebuilt": "1.3.1"
+  },
+  "dependencies": {
+    "engine.io-client": "1.6.11"
   }
 }
