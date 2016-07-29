@@ -16,8 +16,9 @@ brew install node
 |----------|------------------------------------------------------|
 | list     | List installed npm packages with their dependencies. |
 | outdated | List all installed packages for which a latest version of package is available in npm registry. |
-| prune    | Removes “extraneous” packages i.e. packages installed but not listed in package.json file. |
-| pack     | Creates an installable tarball from a package. This tarball can then be published on npm registry or installed in some other environment e.g. production. |
+| start    | Runs the application. Must start the webpack server first via the watch task. |
+| watch | Compiles the webpack bundle and launchs the webpack dev server. |
+| docs | Generates the JavaScript documentation. |
 
 ## Development
 ### Updating Dependencies
@@ -28,6 +29,7 @@ brew install node
 5. Run the tests.
 
 ## Related Resources
+### Electron
 * [Electron](http://electron.atom.io)
 
 ### Security & Privacy
@@ -41,3 +43,10 @@ brew install node
 * [Owasp Session Management Guide](https://www.owasp.org/index.php/Session_Management_Cheat_Sheet)
 * [Owasp TLS Guide](https://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet)
 * [Owas XSS Guide](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet)
+
+### JSDoc
+* [Github Page](https://github.com/jsdoc3/jsdoc)
+* [Documentation](http://usejsdoc.org)
+
+### Project Governance
+* [Change Log](http://keepachangelog.com/)

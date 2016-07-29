@@ -35,6 +35,18 @@ module.exports = {
     //     "vendors", /* chunkName */
     //     "vendors.js" /* filename */)
   ],
-  resolve: { fallback: path.join(__dirname, "node_modules") }
-  // externals: ['react', 'react-dom']
+  resolve: { fallback: path.join(__dirname, "node_modules") },
+  externals: [
+    (function () {
+      var IGNORES = [
+        'electron'
+      ];
+      return function (context, request, callback) {
+        if (IGNORES.indexOf(request) >= 0) {
+          return callback(null, "require('" + request + "')");
+        }
+        return callback();
+      };
+    })()
+  ]
 };

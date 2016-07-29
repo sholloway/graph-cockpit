@@ -1,5 +1,10 @@
 'use strict';
 
+/*
+This is the main process of the Electron app. Changes to this file will not
+be picked up by the webpack-dev-server.
+*/
+
 const electron = require('electron');
 const {app, BrowserWindow} = electron;
 
@@ -19,6 +24,16 @@ app.on('window-all-closed', () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', () => {
+  /*
+  Set platform name for the render process, as the NodeJS process appears
+  to not be available.
+  This can be accessed in the render process via:
+  require('electron').remote.getGlobal('appEnv').platform
+  */
+  global.appEnv = {
+    platform: process.platform
+  };
+
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600});
 
