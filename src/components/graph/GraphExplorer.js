@@ -13,7 +13,7 @@ class GraphExplorer extends Component{
 
 	render(){
 		return(
-			<div>
+			<div className="graphExplorer">
 				<p>Graph Explorer</p>
 			</div>
 		);

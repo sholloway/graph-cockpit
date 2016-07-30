@@ -13,7 +13,7 @@ class UserRegistration extends Component{
 
 	render(){
 		return(
-			<div>
+			<div className="userRegistration">
 				<p>User Registration</p>
 			</div>
 		);

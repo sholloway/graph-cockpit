@@ -13,7 +13,7 @@ class UserChallenge extends Component{
 
 	render(){
 		return(
-			<div>
+			<div className="userChallenge">
 				<p>User Challenge</p>
 			</div>
 		);

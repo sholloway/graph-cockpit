@@ -13,7 +13,7 @@ class ContentView extends Component{
 
 	render(){
 		return(
-			<div>
+			<div className ="contentView">
 				<p>Content View</p>
 			</div>
 		);

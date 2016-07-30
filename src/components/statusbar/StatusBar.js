@@ -13,7 +13,7 @@ class StatusBar extends Component{
 
 	render(){
 		return(
-			<div>
+			<div className="statusBar">
 				<p>Status Bar</p>
 			</div>
 		);
