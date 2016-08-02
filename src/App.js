@@ -1,24 +1,14 @@
-/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React][ApplicationMenu]" }]*/
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React][Provider]" }]*/
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-// import { Provider } from 'react-redux';
-// import { Router, hashHistory } from 'react-router';
-// import { syncHistoryWithStore } from 'react-router-redux';
-// import routes from './routes';
-// import configureStore from './store/configureStore';
-// import './app.global.css';
+import { Provider } from 'react-redux';
+import { Router, hashHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import routes from './routes';
+import configureStore from './store/configureStore';
 
-// const store = configureStore();
-// const history = syncHistoryWithStore(hashHistory, store);
-
-import './App.css';
-
-import ApplicationMenu from './components/menu/ApplicationMenu.js';
-import UserRegistration from './components/registration/UserRegistration.js';
-import UserChallenge from './components/challenge/UserChallenge.js';
-import GraphExplorer from './components/graph/GraphExplorer.js';
-import ContentView from './components/contentView/ContentView.js';
-import StatusBar from './components/statusbar/StatusBar.js';
+const store = configureStore();
+const history = syncHistoryWithStore(hashHistory, store);
 
 class App extends Component{
 	constructor(props) {
@@ -29,17 +19,10 @@ class App extends Component{
 	}
 
 	render(){
-		return(
-			<div className="mainView">
-				<UserRegistration />
-				<UserChallenge />
-				<div>
-					<ApplicationMenu />
-					<GraphExplorer />
-					<ContentView />
-				</div>
-				<StatusBar />
-			</div>
+		return (
+			<Provider store={store}>
+				<Router history={history} routes={routes(store)} />
+			</Provider>
 		);
 	}
 }
