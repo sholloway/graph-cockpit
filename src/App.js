@@ -10,6 +10,8 @@ import configureStore from './store/configureStore';
 const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
 
+import './global.css';
+
 class App extends Component{
 	constructor(props) {
     super(props);

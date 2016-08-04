@@ -1,0 +1,92 @@
+/*
+Theme
+Background Color: #FFFFFF
+Forground Text: #212121
+Border Color: #222222
+*/
+
+html {
+  background-color: #FFFFFF;
+}
+
+body{
+  font-family: Roboto, sans-serif;
+}
+
+/*
+The root element should behave like an overlay.
+It should fill the entire screen and establish
+a flexbox layout.
+*/
+#root{
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /*background-color: blue;*/
+}
+
+.sh-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.sh-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.form-control {
+  width: 250px;
+  height: 34px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #212121;
+  background-color: #FFFFFF;
+  background-image: none;
+  /*border: 1px solid #337ab7;*/
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding-left:10px;
+}
+
+/*
+I'd like a slight background gradient.
+*/
+.sh-button{
+  font-size: 14px;
+  font-weight: bolder;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  width:100px;
+  height: 34px;
+  background-color: #212121;
+  color: grey;
+}
+
+.sh-button:hover{
+  background-color: #444444;
+  color: #FFFFFF;
+}
+
+.sh-button:active{
+  background-color: blue;
+}
+
+.sh-clickable{
+  cursor: pointer;
+}
+
+/*
+On Hover:
+Change cursor to the hand.
+Brighten the text.
+Lighten the background
+*/
