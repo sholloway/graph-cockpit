@@ -3,6 +3,11 @@ Theme
 Background Color: #FFFFFF
 Forground Text: #212121
 Border Color: #222222
+
+z-index Map
+Base Level Components: 0
+Modals: 10
+Spinners: 20
 */
 
 html {
@@ -94,3 +99,17 @@ Change cursor to the hand.
 Brighten the text.
 Lighten the background
 */
+
+.main{
+  background-color: pink;
+  align-content: stretch;
+  align-items: stretch;
+  justify-content: flex-end;
+  position: relative;
+  width: 100%;
+}
+
+.main-content{
+  height: 100%;
+  justify-content: flex-end;
+}

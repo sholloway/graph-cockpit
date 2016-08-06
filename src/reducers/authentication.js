@@ -1,10 +1,45 @@
-import {REQUEST_AUTHENTICATION_STATUS} from '../actions/authentication.js';
+import {REQUEST_AUTHENTICATION_STATUS,
+	USER_CHALLENGE_DISPLAY_PWD_CHANGED,
+	USER_AUTHENTICATED,
+	DO_NOTHING} from '../actions/authentication.js';
 
-export default function authenticate(state=0, action){
+let initialState = {
+	user: { //TODO: Create an App Reducer and place this there.
+		authenticated: false
+	},
+	system: { //TODO: Create an App Reducer and place this there.
+		authenticating: false
+	},
+	userChallenge:{
+		dispayPassword: false
+	}
+};
+
+export default function authenticate(state=initialState, action){
+	let nextState;
 	switch (action.type){
 		case REQUEST_AUTHENTICATION_STATUS:
-			return state;
+			nextState = state;
+			break;
+		case USER_CHALLENGE_DISPLAY_PWD_CHANGED:
+			nextState = Object.assign({}, state, {
+				userChallenge:{
+					dispayPassword: action.displayedStatus
+				}
+			});
+			break;
+		case USER_AUTHENTICATED:
+		nextState = Object.assign({}, state, {
+			user: {
+				authenticated: true
+			}
+		});
+		break;
+		case DO_NOTHING:
+			nextState = state;
+			break;
 		default:
-			return state;
+				nextState = state;
 	}
+	return nextState;
 }

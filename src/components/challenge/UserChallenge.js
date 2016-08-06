@@ -1,6 +1,7 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React]" }]*/
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { withRouter } from 'react-router';
 import './UserChallenge.css';
 import Spinner from '../spinner/Spinner';
 
@@ -22,21 +23,25 @@ class UserChallenge extends Component{
 	constructor(props) {
     super(props);
 
-		//Bind all event handlers so they don't have to be bound in the JSX.
-		this.showPasswordToggle = this.showPasswordToggle.bind(this);
 		this.login = this.login.bind(this);
-
 		this.state = {
 			passwordBoxType: PASSWORD_INPUT_TYPE,
-			inputStatus: USER_INPUT_INITIAL_STATE,
-			authenticating: false
+			inputStatus: USER_INPUT_INITIAL_STATE
 		};
 	}
 
 	componentWillMount (){
 	}
 
+	componentWillUpdate(nextProps, nextState){
+		if(nextProps.authenticated){
+			this.props.router.push('/home');
+		}
+	}
+
 	render(){
+		const {displayPasswordOptionChanged} = this.props;
+		let passwordBoxType = (this.props.dispayPassword)? TEXT_INPUT_TYPE : PASSWORD_INPUT_TYPE;
 		return(
 			<div className="userChallenge sh-column">
 				<div className="sh-row">
@@ -50,7 +55,7 @@ class UserChallenge extends Component{
 				</div>
 				<div className="sh-row">
 					<label htmlFor="user-last-name-txt-field">Password</label>
-					<input type={this.state.passwordBoxType}
+					<input type={passwordBoxType}
 						className="form-control"
 						id="user-password-txt-field"
 						ref={(ref) => this.passwordBox = ref}
@@ -64,12 +69,12 @@ class UserChallenge extends Component{
 					<label>
 						<input ref="coreTeamMember"
 							type="checkbox"
-							onClick={this.showPasswordToggle} /> Show Password
+							onClick={displayPasswordOptionChanged} /> Show Password
 					</label>
 					<button className="sh-button sh-clickable"
 						onClick={this.login}>login</button>
 				</div>
-				<Spinner spinning={this.state.authenticating}/>
+				<Spinner spinning={this.props.authenticating}/>
 			</div>
 		);
 	}
@@ -81,8 +86,9 @@ class UserChallenge extends Component{
 		let userInput = this.fetchUserInput();
 		let status = this.validateUserInput(userInput);
 		if (status == USER_INPUT_VALID){
-			this.attemptLogin(userInput);
+			this.props.authenticationRequest(userInput);
 		}else{
+			//TODO: Change to use an action...
 			let mutatedState = this.state;
 			mutatedState.inputStatus = status;
 			this.setState(mutatedState);
@@ -92,6 +98,7 @@ class UserChallenge extends Component{
 	fetchUserInput(){
 		let userInput = {};
 		userInput.username = this.userNameTextBox.value;
+		//TODO Generate a hash. Don't pass this around in memory.
 		userInput.password = this.passwordBox.value;
 		return userInput;
 	}
@@ -106,27 +113,6 @@ class UserChallenge extends Component{
 			userStatus = USER_INPUT_VALID;
 		}
 		return userStatus;
-	}
-
-	attemptLogin(userInput){
-		/*
-		I will generate the hash right here and even assign the pwd to a field.
-		After the spinner is working, this needs to change to fire an event
-		The action should do the WS request to login.
-		That should result in a broadcast that the login is being attempted,
-		which in turn will change the state.
-		*/
-		let mutatedState = this.state;
-		mutatedState.inputStatus = USER_INPUT_VALID;
-		mutatedState.authenticating = true;
-		this.setState(mutatedState);
-	}
-
-	showPasswordToggle(event){
-		let passwordBoxType = (event.target.checked)? TEXT_INPUT_TYPE : PASSWORD_INPUT_TYPE;
-		let mutatedState = this.state;
-		mutatedState.passwordBoxType = passwordBoxType;
-		this.setState(mutatedState);
 	}
 
 	statusMessage(){
@@ -153,5 +139,11 @@ class UserChallenge extends Component{
 		return statusMessage;
 	}
 }
-
-export default UserChallenge;
+UserChallenge.propTypes = {
+	authenticated: PropTypes.bool,
+	authenticating: PropTypes.bool,
+	dispayPassword: PropTypes.bool,
+	displayPasswordOptionChanged: PropTypes.func.isRequired,
+	authenticationRequest: PropTypes.func.isRequired
+};
+export default withRouter(UserChallenge);
