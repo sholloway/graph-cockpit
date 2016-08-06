@@ -84,6 +84,10 @@ I'd like a slight background gradient.
   cursor: pointer;
 }
 
+.sh-status-message{
+  color:red;
+}
+
 /*
 On Hover:
 Change cursor to the hand.

@@ -10,6 +10,8 @@
   border: 2px solid #222222;
   border-radius: 10px;
   color: #212121;
+  z-index: 0;
+  position: relative; /*Required to contain a spinner overlay.*/
 }
 
 .userChallenge>.sh-row{

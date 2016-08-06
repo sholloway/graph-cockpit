@@ -2,9 +2,21 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './UserChallenge.css';
+import Spinner from '../spinner/Spinner';
 
-export const TEXT_INPUT_TYPE = "text";
-export const PASSWORD_INPUT_TYPE = "password";
+const TEXT_INPUT_TYPE = "text";
+const PASSWORD_INPUT_TYPE = "password";
+const USER_INPUT_INITIAL_STATE = 0;
+const USER_INPUT_VALID = 1;
+const USER_NAME_EMPTY = -1;
+const PASSWORD_EMPTY = -2;
+const AUTHENTICATION_FAILED = -3;
+
+const AUTH_FAILED_MSG = "Failed to authenticate.";
+const PASSWORD_PROMPT_MSG = "Please provide your password.";
+const USER_NAME_PROMPT_MSG = "Please provide your username.";
+const DUAL_INPUT_PROMPT_MSG = "Please provide your username and password.";
+const ATTEMPTING_LOGIN_MSG = "Attempting Login";
 
 class UserChallenge extends Component{
 	constructor(props) {
@@ -14,7 +26,11 @@ class UserChallenge extends Component{
 		this.showPasswordToggle = this.showPasswordToggle.bind(this);
 		this.login = this.login.bind(this);
 
-		this.state = { passwordBoxType: PASSWORD_INPUT_TYPE};
+		this.state = {
+			passwordBoxType: PASSWORD_INPUT_TYPE,
+			inputStatus: USER_INPUT_INITIAL_STATE,
+			authenticating: false
+		};
 	}
 
 	componentWillMount (){
@@ -42,6 +58,9 @@ class UserChallenge extends Component{
 						required/>
 				</div>
 				<div className="sh-row">
+					<span className="sh-status-message">{this.statusMessage()}</span>
+				</div>
+				<div className="sh-row">
 					<label>
 						<input ref="coreTeamMember"
 							type="checkbox"
@@ -50,6 +69,7 @@ class UserChallenge extends Component{
 					<button className="sh-button sh-clickable"
 						onClick={this.login}>login</button>
 				</div>
+				<Spinner spinning={this.state.authenticating}/>
 			</div>
 		);
 	}
@@ -58,11 +78,48 @@ class UserChallenge extends Component{
 	Can you make a function private in an ES6 class?
 	*/
 	login(){
-		let user = {};
-		user.username = this.userNameTextBox.value;
-		user.password = this.passwordBox.value;
-		console.log(user);
-		//I will generate the hash right here and even assign the pwd to a field.
+		let userInput = this.fetchUserInput();
+		let status = this.validateUserInput(userInput);
+		if (status == USER_INPUT_VALID){
+			this.attemptLogin(userInput);
+		}else{
+			let mutatedState = this.state;
+			mutatedState.inputStatus = status;
+			this.setState(mutatedState);
+		}
+	}
+
+	fetchUserInput(){
+		let userInput = {};
+		userInput.username = this.userNameTextBox.value;
+		userInput.password = this.passwordBox.value;
+		return userInput;
+	}
+
+	validateUserInput(userInput){
+		let userStatus;
+		if (userInput.username.trim().length < 1){
+			userStatus = USER_NAME_EMPTY;
+		}else if(userInput.password.trim().length < 1){
+			userStatus = PASSWORD_EMPTY;
+		}else{
+			userStatus = USER_INPUT_VALID;
+		}
+		return userStatus;
+	}
+
+	attemptLogin(userInput){
+		/*
+		I will generate the hash right here and even assign the pwd to a field.
+		After the spinner is working, this needs to change to fire an event
+		The action should do the WS request to login.
+		That should result in a broadcast that the login is being attempted,
+		which in turn will change the state.
+		*/
+		let mutatedState = this.state;
+		mutatedState.inputStatus = USER_INPUT_VALID;
+		mutatedState.authenticating = true;
+		this.setState(mutatedState);
 	}
 
 	showPasswordToggle(event){
@@ -70,6 +127,30 @@ class UserChallenge extends Component{
 		let mutatedState = this.state;
 		mutatedState.passwordBoxType = passwordBoxType;
 		this.setState(mutatedState);
+	}
+
+	statusMessage(){
+		let statusMessage;
+		switch(this.state.inputStatus){
+			case AUTHENTICATION_FAILED:
+				statusMessage = AUTH_FAILED_MSG;
+				break;
+			case PASSWORD_EMPTY:
+				statusMessage = PASSWORD_PROMPT_MSG;
+				break;
+			case USER_NAME_EMPTY:
+				statusMessage = USER_NAME_PROMPT_MSG;
+				break;
+			case USER_INPUT_INITIAL_STATE:
+				statusMessage = DUAL_INPUT_PROMPT_MSG;
+				break;
+			case USER_INPUT_VALID:
+				statusMessage = ATTEMPTING_LOGIN_MSG;
+				break;
+			default:
+				statusMessage = DUAL_INPUT_PROMPT_MSG;
+		}
+		return statusMessage;
 	}
 }
 
