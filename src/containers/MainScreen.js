@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import ApplicationMenu from '../components/menu/ApplicationMenu';
 import GraphExplorer from '../components/graph/GraphExplorer';
 import ContentView from '../components/contentView/ContentView';
+import FindBar from '../components/find/FindBar.js';
 import StatusBar from '../components/statusbar/StatusBar';
 
 import * as MainActions from '../actions/main';
@@ -34,6 +35,7 @@ class MainScreen extends Component{
 					<GraphExplorer />
 					<ContentView />
 				</div>
+				<FindBar />
 				<StatusBar />
 			</div>
 		);
