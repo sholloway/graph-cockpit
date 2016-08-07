@@ -2,3 +2,6 @@
   background-color: yellow;
   height: 20px;
 }
+.statusBar>p{
+  margin: 0
+}
