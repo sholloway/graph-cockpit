@@ -10,10 +10,9 @@ const createMenu = function(launchFindElementGUI){
 			{ type: 'separator'},
 			{
 				label: 'Find Element...',
+				accelerator: 'CmdOrCtrl+F',
 				click(menuItem, focusedWindow, event){
 					if(focusedWindow){
-						console.log("I clicked the Find Element... menu item.");
-						console.log(focusedWindow);
 						launchFindElementGUI();
 						/*
 						Goals: When the user clicks the menu item:
