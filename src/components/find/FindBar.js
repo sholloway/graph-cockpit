@@ -6,9 +6,28 @@ import './FindBar.css';
 class FindBar extends Component{
 	constructor(props) {
     super(props);
+		this.handleKeyPressed = this.handleKeyPressed.bind(this);
 	}
 
 	componentWillMount (){
+	}
+
+	componentDidMount(){
+		window.addEventListener('keydown', this.handleKeyPressed);
+	}
+
+	componentWillUnmount(){
+		window.removeEventListener('keydown', this.handleKeyPressed);
+	}
+
+	handleKeyPressed(event){
+		switch(event.key){
+			case 'Escape':
+				this.props.escWasPressed();
+				break;
+			default:
+				break;
+		}
 	}
 
 	render(){
@@ -29,7 +48,8 @@ class FindBar extends Component{
 	}
 }
 FindBar.propTypes = {
-	displayed: PropTypes.bool.isRequired
+	displayed: PropTypes.bool.isRequired,
+	escWasPressed: PropTypes.func.isRequired
 };
 
 export default FindBar;

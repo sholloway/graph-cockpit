@@ -12,7 +12,6 @@ import StatusBar from '../components/statusbar/StatusBar';
 import * as MainActions from '../actions/main';
 
 function mapStateToProps(state){
-	console.log(state);
   return {
 		findBar: {
 			displayed: state.main.findBar.displayed
@@ -40,7 +39,8 @@ class MainScreen extends Component{
 					<GraphExplorer />
 					<ContentView />
 				</div>
-				<FindBar displayed={this.props.findBar.displayed}/>
+				<FindBar displayed={this.props.findBar.displayed}
+					escWasPressed={this.props.escWasPressed}/>
 				<StatusBar />
 			</div>
 		);
