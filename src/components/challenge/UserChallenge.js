@@ -140,9 +140,9 @@ class UserChallenge extends Component{
 	}
 }
 UserChallenge.propTypes = {
-	authenticated: PropTypes.bool,
-	authenticating: PropTypes.bool,
-	dispayPassword: PropTypes.bool,
+	authenticated: PropTypes.bool.isRequired,
+	authenticating: PropTypes.bool.isRequired,
+	dispayPassword: PropTypes.bool.isRequired,
 	displayPasswordOptionChanged: PropTypes.func.isRequired,
 	authenticationRequest: PropTypes.func.isRequired
 };

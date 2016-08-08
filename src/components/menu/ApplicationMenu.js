@@ -1,5 +1,5 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }]*/
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Electron from 'electron';
 const remote = Electron.remote;
@@ -25,7 +25,7 @@ class ApplicationMenu extends Component{
 			menuTemplate.push(appMenu);
 		}
 		menuTemplate.push(createFileMenu());
-		menuTemplate.push(createEditMenu());
+		menuTemplate.push(createEditMenu(this.props.launchFindElementGUI));
 		menuTemplate.push(createViewMenu());
 		menuTemplate.push(createHelpMenu());
 		const generatedMenu = Menu.buildFromTemplate(menuTemplate);
@@ -37,5 +37,8 @@ class ApplicationMenu extends Component{
 		return false;
 	}
 }
+ApplicationMenu.propTypes = {
+	launchFindElementGUI: PropTypes.func.isRequired
+};
 
 export default ApplicationMenu;

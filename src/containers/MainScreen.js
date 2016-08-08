@@ -12,7 +12,12 @@ import StatusBar from '../components/statusbar/StatusBar';
 import * as MainActions from '../actions/main';
 
 function mapStateToProps(state){
-  return {};
+	console.log(state);
+  return {
+		findBar: {
+			displayed: state.main.findBar.displayed
+		}
+	};
 }
 
 function mapDispatchToProps(dispatch){
@@ -31,11 +36,11 @@ class MainScreen extends Component{
 		return(
 			<div className="main sh-column">
 				<div className="main-content sh-row">
-					<ApplicationMenu />
+					<ApplicationMenu launchFindElementGUI={this.props.launchFindElementGUI}/>
 					<GraphExplorer />
 					<ContentView />
 				</div>
-				<FindBar />
+				<FindBar displayed={this.props.findBar.displayed}/>
 				<StatusBar />
 			</div>
 		);
