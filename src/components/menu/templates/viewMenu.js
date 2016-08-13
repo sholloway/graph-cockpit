@@ -2,6 +2,7 @@
 import Electron from 'electron';
 const remote = Electron.remote;
 const {ipcRenderer} = require('electron');
+import {ACTIVITY_LOG_WINDOW, TABLE_WINDOW, TREE_MAP_WINDOW} from '../../../windows-manager';
 
 /** Template for the View menu.
 */
@@ -12,40 +13,27 @@ const createMenu = function(){
 			{ label: 'Activity Log',
 				click(menuItem, focusedWindow, event){
 					if(focusedWindow){
-						launchActivityLogWindow();
+						ipcRenderer.send('launch-window', ACTIVITY_LOG_WINDOW);
 					}
 				}
 			},
 			{ label: 'Table View',
 				click(menuItem, focusedWindow, event){
 					if(focusedWindow){
-						launchTableViewWindow();
+						ipcRenderer.send('launch-window', TABLE_WINDOW);
 					}
 				}
 			},
 			{ label: 'Table Map',
 				click(menuItem, focusedWindow, event){
 					if(focusedWindow){
-						launchTableMapWindow();
+						ipcRenderer.send('launch-window', TREE_MAP_WINDOW);
 					}
 				}
 			}
 		]
 	};
 };
-
-function launchActivityLogWindow(){
-	ipcRenderer.send('launch-window');
-}
-
-function launchTableViewWindow(){
-	console.log('Hi Table View');
-}
-
-function launchTableMapWindow(){
-	console.log('Hi Table Map');
-}
-
 export default createMenu;
 /*
 Next Steps:

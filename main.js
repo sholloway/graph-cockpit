@@ -8,6 +8,8 @@ be picked up by the webpack-dev-server.
 const electron = require('electron');
 const {app, BrowserWindow} = electron;
 const {ipcMain} = require('electron');
+const WindowManager = require('./src/windows-manager');
+let centralWindowManager = WindowManager.WindowsManager.instance();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -53,10 +55,6 @@ app.on('ready', () => {
   });
 });
 
-ipcMain.on('launch-window', function(event){
-	let newWindow = new BrowserWindow({width: 400, height:400});
-	newWindow.loadURL('file://' + __dirname + '/pages/activityWindow.html');
-	newWindow.on('close', function(){
-		newWindow = null;
-	});
+ipcMain.on('launch-window', function(event, windowType){
+	centralWindowManager.createWindow(windowType);
 });
