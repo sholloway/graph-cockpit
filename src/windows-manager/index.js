@@ -30,6 +30,7 @@ let windowsManager = {
 					that._creatTreeWindow();
 					break;
 				case MAIN_WINDOW:
+					that._createMainWindow();
 					break;
 				default:
 					//TODO Need a logging solution.
@@ -69,6 +70,17 @@ let windowsManager = {
 				that.windows.treeMapWindow.loadURL('file://' + that.workingDir + '/public/treeMapWindow.html');
 				that.windows.treeMapWindow.on('close', function(){
 					that.windows.treeMapWindow = null;
+				});
+			}
+		};
+
+		that._createMainWindow = function(){
+			if (that.windows.mainWindow == undefined || that.windows.mainWindow == null){
+				that.windows.mainWindow = new BrowserWindow({width: 800, height:600});
+				that.windows.mainWindow.webContents.openDevTools();
+				that.windows.mainWindow.loadURL('file://' + that.workingDir + '/public/index.html');
+				that.windows.mainWindow.on('close', function(){
+					that.windows.mainWindow = null;
 				});
 			}
 		};
