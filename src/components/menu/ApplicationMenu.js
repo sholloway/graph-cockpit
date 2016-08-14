@@ -9,6 +9,7 @@ import createAppMenu from './templates/appMenu.js';
 import createFileMenu from './templates/fileMenu.js';
 import createEditMenu from './templates/editMenu.js';
 import createViewMenu from './templates/viewMenu.js';
+import createWindowsMenu from './templates/windowsMenu.js';
 import createHelpMenu from './templates/helpMenu.js';
 
 class ApplicationMenu extends Component{
@@ -27,6 +28,7 @@ class ApplicationMenu extends Component{
 		menuTemplate.push(createFileMenu());
 		menuTemplate.push(createEditMenu(this.props.launchFindElementGUI));
 		menuTemplate.push(createViewMenu());
+		menuTemplate.push(createWindowsMenu());
 		menuTemplate.push(createHelpMenu());
 		const generatedMenu = Menu.buildFromTemplate(menuTemplate);
 		Menu.setApplicationMenu(generatedMenu);
