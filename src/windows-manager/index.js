@@ -1,5 +1,7 @@
 const electron = require('electron');
 const {BrowserWindow} = electron;
+const shortid = require('shortid');
+
 const MAIN_WINDOW = 'MAIN_WINDOW';
 const ACTIVITY_LOG_WINDOW = 'ACTIVITY_LOG_WINDOW';
 const TABLE_WINDOW = 'TABLE_WINDOW';
@@ -10,7 +12,7 @@ let windowsManager = {
 		let that = {};
 		that.windows = {
 			activityWindow: null,
-			tableWindows: [],
+			tableWindows: {},
 			treeMap: null,
 			mainWindow: null
 		};
@@ -21,6 +23,7 @@ let windowsManager = {
 					that._createActivityWindow();
 					break;
 				case TABLE_WINDOW:
+					that._createTableWindow();
 					break;
 				case TREE_MAP_WINDOW:
 					break;
@@ -28,11 +31,10 @@ let windowsManager = {
 					break;
 				default:
 					//TODO Need a logging solution.
-					console.log("Unknow window type");
+					console.log("Unknown window type");
 			}
 		};
 
-		that.destroyWindow = function(){};
 		that.destroyAllWindows = function(){};
 
 		that._createActivityWindow= function(){
@@ -43,6 +45,20 @@ let windowsManager = {
 					that.windows.activityWindow = null;
 				});
 			}
+		};
+
+		that._createTableWindow= function(){
+			let windowContainer = {};
+			windowContainer.windowId = shortid.generate();
+			windowContainer.newTableWindow = new BrowserWindow({width: 600, height: 600});
+			windowContainer.newTableWindow.loadURL('file://' + __dirname + '/pages/tableWindow.html');
+			that.windows.tableWindows[windowContainer.windowId] = windowContainer;
+			windowContainer.newTableWindow.on('close', (function(){
+				if (that.windows.tableWindows && that.windows.tableWindows.hasOwnProperty(this.windowId)) {
+					that.windows.tableWindows[this.windowId] = null;
+					delete that.windows.tableWindows[this.windowId];
+				}
+			}).bind(windowContainer));
 		};
 
 		return that;
