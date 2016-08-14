@@ -9,7 +9,7 @@ const electron = require('electron');
 const {app, BrowserWindow} = electron;
 const {ipcMain} = require('electron');
 const WindowManager = require('./src/windows-manager');
-let centralWindowManager = WindowManager.WindowsManager.instance();
+let centralWindowManager = WindowManager.WindowsManager.instance(__dirname);
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

@@ -8,8 +8,9 @@ const TABLE_WINDOW = 'TABLE_WINDOW';
 const TREE_MAP_WINDOW = 'TREE_MAP_WINDOW';
 
 let windowsManager = {
-	instance: function(){
+	instance: function(workingDir){
 		let that = {};
+		that.workingDir = workingDir;
 		that.windows = {
 			activityWindow: null,
 			tableWindows: {},
@@ -41,7 +42,7 @@ let windowsManager = {
 		that._createActivityWindow= function(){
 			if (that.windows.activityWindow == undefined || that.windows.activityWindow == null){
 				that.windows.activityWindow = new BrowserWindow({width: 400, height:400});
-				that.windows.activityWindow.loadURL('file://' + __dirname + '/pages/activityWindow.html');
+				that.windows.activityWindow.loadURL('file://' + that.workingDir + '/public/activityWindow.html');
 				that.windows.activityWindow.on('close', function(){
 					that.windows.activityWindow = null;
 				});
@@ -52,7 +53,7 @@ let windowsManager = {
 			let windowContainer = {};
 			windowContainer.windowId = shortid.generate();
 			windowContainer.newTableWindow = new BrowserWindow({width: 600, height: 600});
-			windowContainer.newTableWindow.loadURL('file://' + __dirname + '/pages/tableWindow.html');
+			windowContainer.newTableWindow.loadURL('file://' + that.workingDir + '/public/tableWindow.html');
 			that.windows.tableWindows[windowContainer.windowId] = windowContainer;
 			windowContainer.newTableWindow.on('close', (function(){
 				if (that.windows.tableWindows && that.windows.tableWindows.hasOwnProperty(this.windowId)) {
@@ -65,7 +66,7 @@ let windowsManager = {
 		that._creatTreeWindow = function(){
 			if (that.windows.treeMapWindow == undefined || that.windows.treeMapWindow == null){
 				that.windows.treeMapWindow = new BrowserWindow({width: 400, height:400});
-				that.windows.treeMapWindow.loadURL('file://' + __dirname + '/pages/treeMapWindow.html');
+				that.windows.treeMapWindow.loadURL('file://' + that.workingDir + '/public/treeMapWindow.html');
 				that.windows.treeMapWindow.on('close', function(){
 					that.windows.treeMapWindow = null;
 				});
