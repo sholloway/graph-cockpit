@@ -13,7 +13,7 @@ let windowsManager = {
 		that.windows = {
 			activityWindow: null,
 			tableWindows: {},
-			treeMap: null,
+			treeMapWindow: null,
 			mainWindow: null
 		};
 
@@ -26,6 +26,7 @@ let windowsManager = {
 					that._createTableWindow();
 					break;
 				case TREE_MAP_WINDOW:
+					that._creatTreeWindow();
 					break;
 				case MAIN_WINDOW:
 					break;
@@ -59,6 +60,16 @@ let windowsManager = {
 					delete that.windows.tableWindows[this.windowId];
 				}
 			}).bind(windowContainer));
+		};
+
+		that._creatTreeWindow = function(){
+			if (that.windows.treeMapWindow == undefined || that.windows.treeMapWindow == null){
+				that.windows.treeMapWindow = new BrowserWindow({width: 400, height:400});
+				that.windows.treeMapWindow.loadURL('file://' + __dirname + '/pages/treeMapWindow.html');
+				that.windows.treeMapWindow.on('close', function(){
+					that.windows.treeMapWindow = null;
+				});
+			}
 		};
 
 		return that;
