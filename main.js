@@ -29,7 +29,8 @@ app.on('ready', () => {
   require('electron').remote.getGlobal('appEnv').platform
   */
   global.appEnv = {
-    platform: process.platform
+    platform: process.platform,
+		nodeEnv: process.env
   };
 	centralWindowManager.createWindow(WindowManager.MAIN_WINDOW);
 });

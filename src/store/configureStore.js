@@ -1,12 +1,10 @@
-import { createStore, applyMiddleware } from 'redux';
-// import thunk from 'redux-thunk';
-import { hashHistory } from 'react-router';
-import { routerMiddleware } from 'react-router-redux';
-import rootReducer from '../reducers';
+/*eslint global-require:0*/
+import Electron from 'electron';
+const remote = Electron.remote;
 
-const routerMiddle = routerMiddleware(hashHistory);
-const enhancer = applyMiddleware(routerMiddle);
-
-export default function configureStore(initialState) {
-  return createStore(rootReducer, initialState, enhancer);
+const env = remote.getGlobal("appEnv").nodeEnv;
+if (env.NODE_ENV === 'production') {
+  module.exports = require('./configureStore.production');
+} else {
+  module.exports = require('./configureStore.development');
 }

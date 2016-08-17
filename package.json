@@ -4,7 +4,8 @@
   "description": "An Electron based fat client for working with graphs.",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron main.js",
+    "start": "NODE_ENV=production electron main.js",
+    "start-hot": "NODE_ENV=development electron main.js",
     "hot-deploy": "./node_modules/.bin/webpack-dev-server",
     "electron-rebuild": "./node_modules/.bin/electron-rebuild",
     "docs": "./node_modules/.bin/jsdoc --recurse  -d docs src/"
