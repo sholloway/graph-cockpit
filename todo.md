@@ -7,7 +7,7 @@
 * [X] Window Navigation via React routes.
 * [X] Stub out all menu items.
 * [X] Build Authentication flow.
-* [ ] Establish Cockpit logging solution.
+* [X] Establish Cockpit logging solution. (console only)
 * [ ] Build User Registration flow.
 * [ ] Build reset password flow.
 * [ ] Stub out all Windows & Flows.
@@ -31,4 +31,4 @@
 * [X] Use a CSS Preprocessor. (Answer: Nope)
 * [X] Leverage a UX framework. (Answer: Nope)
 * [ ] Logging strategy for both the Main and Render process.
-  * Options: Multiple Log files. 
+  * Options: Multiple Log files.
