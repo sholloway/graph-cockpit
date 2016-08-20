@@ -1,0 +1,30 @@
+.registrationHealth-container{
+  position: absolute;
+  z-index: 0;
+  /*background: blue;*/
+  width: 744px;
+  height: 100%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.registrationHealth{
+  position: absolute;
+  z-index: 0;
+  width: 100px;
+  height: 100%;
+  right: 0px;
+}
+
+.reg-healthy{
+  background: #212121;
+}
+
+.reg-error{
+  background: red;
+}
+
+.reg-launch{
+  background: green;
+}

@@ -11,11 +11,11 @@
 * [ ] Build User Registration flow.
 * [ ] Build reset password flow.
 * [ ] Stub out all Windows & Flows.
+* [ ] Establish code coverage.
+* [ ] Establish unit tests.
 * [ ] Integrate with Engine Harness.
 * [ ] Create flow orientated acceptance tests.
 * [ ] Establish TLS between Cockpit & Engine.
-* [ ] Establish unit tests.
-* [ ] Establish code coverage.
 * [ ] Create dataset management.
   * [ ] New dataset.
   * [ ] Open dataset (into Relationship Explorer)
@@ -30,5 +30,5 @@
 ## Decisions to make.
 * [X] Use a CSS Preprocessor. (Answer: Nope)
 * [X] Leverage a UX framework. (Answer: Nope)
-* [ ] Logging strategy for both the Main and Render process.
-  * Options: Multiple Log files.
+* [X] Logging strategy for both the Main and Render process.
+* [ ] How and where should user settings be stored?

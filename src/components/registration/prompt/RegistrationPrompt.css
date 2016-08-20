@@ -1,0 +1,8 @@
+.registrationPrompt{
+  justify-content: center;
+  height: 38px;
+}
+
+.registrationPrompt > span > .form-control{
+  margin-left: 10px;
+}

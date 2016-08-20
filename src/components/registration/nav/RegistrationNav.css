@@ -1,0 +1,9 @@
+.registrationNav{
+  /*background-color: purple;*/
+  justify-content: center;
+}
+
+.registrationNav > .sh-button{
+  text-transform: uppercase;
+  margin-left: 10px;
+}

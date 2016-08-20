@@ -1,7 +1,7 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React][ApplicationMenu]" }]*/
 import React, {Component} from 'react';
 import { Route, IndexRoute, IndexRedirect, Redirect } from 'react-router';
-import UserRegistration from './components/registration/UserRegistration.js';
+import RegisterUserScreen from './containers/RegisterUserScreen';
 import LoginScreen from './containers/LoginScreen';
 import MainScreen from './containers/MainScreen';
 import GraphExplorer from './components/graph/GraphExplorer';
@@ -35,14 +35,25 @@ function requireAuth(nextState, replace){
 	}
 }
 
+function userExists(nextState, replace){
+	let appState = this.store.getState();
+	if (!appState.registration.user.exists) {
+    replace({
+      pathname: '/register',
+      state: { nextPathname: nextState.location.pathname } //Note: State is the Router state, not Redux Store.
+    });
+	}
+}
+
 function routes(store){
 	let that = {};
 	that.store = store;
 	that.requireAuth = requireAuth.bind(that);
+	that.userExists = userExists.bind(that);
 	return (
 		<Route>
-			<Route component={LoginScreen} name="Login" path = "/login" />
-			<Route component={UserRegistration} name="Registration" path = "/register" />
+			<Route component={LoginScreen} name="Login" path = "/login" onEnter={that.userExists}/>
+			<Route component={RegisterUserScreen} name="Registration" path = "/register" />
 			<Redirect from="/" to="/home" />
 			<Route component={MainScreen} path="/home" onEnter={that.requireAuth}>
 				<Route component={GraphExplorer} path="/home/explorer" />

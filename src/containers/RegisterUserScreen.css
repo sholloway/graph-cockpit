@@ -1,0 +1,31 @@
+.registerUser-overlay{
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.registerUser{
+  position: absolute;
+  z-index: 10px;
+  background: #FFFFFF;
+  width: 600px;
+}
+
+.registerUser > .sh-row{
+  margin-bottom: 10px;
+}
+
+.registerUser > .interaction{
+  align-content: flex-end;
+  width: 400px;
+  margin: auto;
+}
+
+.registerUser > .interaction > .sh-row{
+  margin-bottom: 10px;
+}

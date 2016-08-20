@@ -1,0 +1,12 @@
+.registrationMessage > span > p:first-of-type{
+  /*color:blue;*/
+}
+
+.registrationMessage{
+  /*flex-grow: 3;*/
+  height: 310px;
+}
+
+.reg-ok{}
+
+.reg-error{}
