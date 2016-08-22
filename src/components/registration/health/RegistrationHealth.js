@@ -18,6 +18,22 @@ class RegistrationHealth extends Component{
 	componentWillMount (){
 	}
 
+	/*
+	Next Steps:
+	I want a liquidy, electric effect for the health component.
+	I like the idea of plasma flowing through a glass pipe.
+	The effect should intensify when the app is launching.
+
+	Possible Solutions
+	- Gifs
+	- CSS Animation
+	- Canvas Animation
+
+	Resources:
+	- Glowing: http://codersblock.com/blog/creating-glow-effects-with-css/
+	- Electic Canvas Demo: http://cssdeck.com/labs/xeheqrb1
+	- Explaination of Plasma Algorithm: http://www.mennovanslooten.nl/blog/post/72
+	*/
 	render(){
 		let healthStyle = this._selectHealthStyle(this.props.phase, this.props.status);
 		let cn = `registrationHealth ${healthStyle}`;

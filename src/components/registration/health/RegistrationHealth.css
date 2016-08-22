@@ -17,14 +17,79 @@
   right: 0px;
 }
 
+/*.reg-healthy{
+  background: #FFFFFF;
+  border: 1px solid #212121;
+  box-shadow:
+    inset 0px 0px 50px 10px #212121,
+    inset 10px 0px 60px 15px red,
+    inset -10px 0px 60px 15px red;
+}*/
+
 .reg-healthy{
+  border: 1px solid #212121;
   background: #212121;
 }
 
 .reg-error{
+  border: 1px solid #212121;
   background: red;
 }
 
 .reg-launch{
   background: green;
 }
+
+@keyframes healthy-shadow {
+   0% {
+     box-shadow:
+       inset 0px 0px 50px 5px #212121,
+       inset 10px 0px 60px 7px #212121,
+       inset -10px 0px 60px 7px #212121;
+   }
+   50% {
+     box-shadow:
+       inset 0px 0px 50px 10px #212121,
+       inset 10px 0px 60px 15px #212121,
+       inset -10px 0px 60px 15px #212121;
+   }
+   100% {
+     box-shadow:
+       inset 0px 0px 50px 5px #212121,
+       inset 10px 0px 60px 7px #212121,
+       inset -10px 0px 60px 7px #212121;
+   }
+}
+
+@keyframes error-shadow {
+   0% {
+     box-shadow:
+       inset 0px 0px 50px 5px #212121,
+       inset 10px 0px 60px 7px red,
+       inset -10px 0px 60px 7px red;
+   }
+   50% {
+     box-shadow:
+       inset 0px 0px 50px 10px #212121,
+       inset 10px 0px 60px 15px red,
+       inset -10px 0px 60px 15px red;
+   }
+   100% {
+     box-shadow:
+       inset 0px 0px 50px 5px #212121,
+       inset 10px 0px 60px 7px red,
+       inset -10px 0px 60px 7px red;
+   }
+}
+
+/*.reg-healthy {
+  background: #FFFFFF;
+  border: 1px solid #212121;
+  animation:healthy-shadow ease-in-out 4s infinite;
+}
+
+.reg-error {
+  background: #FFFFFF;
+  border: 1px solid #212121;
+  animation:error-shadow ease-in-out 4s infinite;
+}*/
