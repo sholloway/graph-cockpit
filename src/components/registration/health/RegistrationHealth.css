@@ -17,79 +17,43 @@
   right: 0px;
 }
 
-/*.reg-healthy{
-  background: #FFFFFF;
-  border: 1px solid #212121;
-  box-shadow:
-    inset 0px 0px 50px 10px #212121,
-    inset 10px 0px 60px 15px red,
-    inset -10px 0px 60px 15px red;
-}*/
-
-.reg-healthy{
+.reg-initial-ok{
   border: 1px solid #212121;
   background: #212121;
 }
 
-.reg-error{
+.reg-new-error{
+  border: 1px solid #212121;
+  background: red;
+  transition: background-color 500ms ease-in;
+}
+
+.reg-existing-error{
   border: 1px solid #212121;
   background: red;
 }
 
-.reg-launch{
+.reg-re-establish-ok{
+  border: 1px solid #212121;
+  background: #212121;
+  transition: background-color 500ms ease-in;
+}
+
+.reg-ok{
+  border: 1px solid #212121;
+  background: #212121;
+}
+
+.reg-registered{
   background: green;
+  transition: background-color 500ms linear;
 }
 
-@keyframes healthy-shadow {
-   0% {
-     box-shadow:
-       inset 0px 0px 50px 5px #212121,
-       inset 10px 0px 60px 7px #212121,
-       inset -10px 0px 60px 7px #212121;
-   }
-   50% {
-     box-shadow:
-       inset 0px 0px 50px 10px #212121,
-       inset 10px 0px 60px 15px #212121,
-       inset -10px 0px 60px 15px #212121;
-   }
-   100% {
-     box-shadow:
-       inset 0px 0px 50px 5px #212121,
-       inset 10px 0px 60px 7px #212121,
-       inset -10px 0px 60px 7px #212121;
-   }
-}
-
-@keyframes error-shadow {
-   0% {
-     box-shadow:
-       inset 0px 0px 50px 5px #212121,
-       inset 10px 0px 60px 7px red,
-       inset -10px 0px 60px 7px red;
-   }
-   50% {
-     box-shadow:
-       inset 0px 0px 50px 10px #212121,
-       inset 10px 0px 60px 15px red,
-       inset -10px 0px 60px 15px red;
-   }
-   100% {
-     box-shadow:
-       inset 0px 0px 50px 5px #212121,
-       inset 10px 0px 60px 7px red,
-       inset -10px 0px 60px 7px red;
-   }
-}
-
-/*.reg-healthy {
-  background: #FFFFFF;
-  border: 1px solid #212121;
-  animation:healthy-shadow ease-in-out 4s infinite;
-}
-
-.reg-error {
-  background: #FFFFFF;
-  border: 1px solid #212121;
-  animation:error-shadow ease-in-out 4s infinite;
-}*/
+/*
+transition: [transition-property]
+  [transition-duration]
+  [transition-timing-function]
+    ease | linear |ease-in | ease-out | ease-in-out |
+    step-start | step-end
+  [transition-delay];
+*/

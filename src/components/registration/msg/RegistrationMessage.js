@@ -6,7 +6,7 @@ import './RegistrationMessage.css';
 
 const REGISTATION_PWD_INSTRUCTIONS_MSG = ``;
 
-class UserRegistration extends Component{
+class RegistrationMessage extends Component{
 	constructor(props) {
     super(props);
 	}
@@ -59,7 +59,7 @@ class UserRegistration extends Component{
 	*/
 	_registrationMsg(softwareName){
 		return (
-			<span className="reg-ok">
+			<span>
 				<h2>Welcome</h2>
 				<p>Hi. I am <strong>{softwareName}</strong>.</p>
 				<p>My mission in life is to help you organize all the different
@@ -74,13 +74,12 @@ class UserRegistration extends Component{
 	}
 
 	_nicknamePromptMsg(status){
-		console.log(status);
 		return (STATUS_TYPES.OK === status)? this._nicknameOKMsg() : this._nicknameErrorMsg();
 	}
 
 	_nicknameOKMsg(){
 		return (
-			<span className="reg-ok">
+			<span>
 				<h2>Welcome</h2>
 				<p>What would you like me to call you? It can be anything you want and you can change it later.</p>
 			</span>
@@ -89,7 +88,7 @@ class UserRegistration extends Component{
 
 	_nicknameErrorMsg(){
 		return (
-			<span className="reg-error">
+			<span>
 				<h2>Welcome</h2>
 				<p>Come on, I told you my name. Give me something to call you.</p>
 			</span>
@@ -102,7 +101,7 @@ class UserRegistration extends Component{
 
 	_pwdOKMsg(nickname){
 		return (
-			<span className="reg-ok">
+			<span >
 				<h2>Password Setup</h2>
 				<p>Nice to meet you <strong>{nickname}</strong>.</p>
 				<p>The folks that made me believe that data is valuable. They told me to help you safe guard your data. To do that you need a password.</p>
@@ -113,7 +112,7 @@ class UserRegistration extends Component{
 
 	_pwdErrorMsg(nickname){
 		return (
-			<span className="reg-error">
+			<span >
 				<p>I'm sorry <strong>{nickname}</strong>.</p>
 				<p>
 					That password would be too easy to guess. You need to provide one that is:
@@ -134,7 +133,7 @@ class UserRegistration extends Component{
 
 	_emailOKMsg(){
 		return (
-			<span className="reg-ok">
+			<span>
 				<h2>Email Setup</h2>
 				<p>All right, almost done. The last thing I need is a valid email address.</p>
 				<p>Don't worry, I won't sell your email or spam you. I just need your email incase you forget your password.</p>
@@ -144,7 +143,7 @@ class UserRegistration extends Component{
 
 	_emailErrorMsg(){
 		return (
-			<span className="reg-error">
+			<span>
 				<h2>Email Setup</h2>
 				<p>That isn't a correctly formatted email address. Why don't you give it another try.</p>
 			</span>
@@ -157,7 +156,7 @@ class UserRegistration extends Component{
 
 	_verifyOKMsg(nickname, emailAddress){
 		return (
-			<span className="reg-ok">
+			<span>
 				<h2>Email Setup</h2>
 				<p>Thank you <strong>{nickname}</strong>.</p>
 				<p>I've sent you a verification code to {emailAddress} to verify
@@ -169,7 +168,7 @@ class UserRegistration extends Component{
 
 	_verifyErrorMsg(){
 		return (
-			<span className="reg-error">
+			<span>
 				<h2>Email Setup</h2>
 				<p>That's not the code I sent you.</p>
 				<p>Why don't you try again or if you need me to I can send you a different code.</p>
@@ -177,10 +176,10 @@ class UserRegistration extends Component{
 		);
 	}
 }
-UserRegistration.propTypes = {
+RegistrationMessage.propTypes = {
 	phase: PropTypes.number.isRequired,
 	status: PropTypes.string.isRequired,
 	nickname: PropTypes.string,
 	emailAddress: PropTypes.string
 };
-export default UserRegistration;
+export default RegistrationMessage;
