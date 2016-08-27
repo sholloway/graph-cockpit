@@ -1,6 +1,7 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React]" }]*/
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RegistrationHealth, {HEALTH_RENDER_STATE} from '../components/registration/health/RegistrationHealth';
@@ -13,9 +14,7 @@ import './RegisterUserScreen.css';
 
 function mapStateToProps(state) {
   return {
-    // authenticated: state.authentication.user.authenticated,
-		// authenticating: state.authentication.system.authenticating,
-		// dispayPassword: state.authentication.userChallenge.dispayPassword
+    userRegistered: state.registration.user.exists
   };
 }
 
@@ -53,6 +52,12 @@ class RegistrationContainer extends Component{
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
 		this.handleEmailChange = this.handleEmailChange.bind(this);
 		this.handleCodeChange = this.handleCodeChange.bind(this);
+	}
+
+  componentWillUpdate(nextProps, nextState){ // eslint-disable-line no-unused-vars
+		if(nextProps.userRegistered){
+			this.props.router.push('/home');
+		}
 	}
 
 	handleNicknameChange(event){
@@ -120,14 +125,18 @@ class RegistrationContainer extends Component{
 	}
 
 	navForward(){
-		if (this.state.phase == maximumPhase()){
-			return;
-		}
-
 		let valid = this.prompt.validate(this.state.phase);
     let nextRenderState = this._findNextHealthRenderState(valid);
 		let nextState;
 		if(valid){
+      if (this.state.phase == maximumPhase()){
+        //From here fire an action so the top level state has the user registered.
+        //Then on componentWillUpdate, do the route to /home.
+        console.log("about to fire registerUser action");
+        this.props.registerUser();
+        return;
+      }
+
 			let nextPhase = this.state.phase + 1;
 
 			nextState = Object.assign({}, this.state, {
@@ -222,4 +231,4 @@ class RegistrationContainer extends Component{
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RegistrationContainer));

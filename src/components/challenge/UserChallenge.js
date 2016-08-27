@@ -33,7 +33,7 @@ class UserChallenge extends Component{
 	componentWillMount (){
 	}
 
-	componentWillUpdate(nextProps, nextState){
+	componentWillUpdate(nextProps, nextState){ /* eslint-disable-line no-unused-vars */
 		if(nextProps.authenticated){
 			this.props.router.push('/home');
 		}
