@@ -5,7 +5,7 @@ import {REQUEST_AUTHENTICATION_STATUS,
 
 let initialState = {
 	user: { //TODO: Create an App Reducer and place this there.
-		authenticated: false
+		authenticated: true
 	},
 	system: { //TODO: Create an App Reducer and place this there.
 		authenticating: false

@@ -11,7 +11,6 @@ Spinners: 20
 */
 
 html {
-  background-color: #FFFFFF;
 }
 
 body{
@@ -32,6 +31,10 @@ a flexbox layout.
   left: 0;
   width: 100%;
   height: 100%;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAADCAYAAABfwxXFAAAAUklEQVQIWwXBsQ0AEBBA0c8OGp1dDHATWkohEYlWoVGIROG8Z1RVAcYYpJSIMRJCYM6JuffqOYdaK+89vPfsvbHWYkop6pwj50zvnbUWrTVEhA9yZStCmEwwLgAAAABJRU5ErkJggg==") no-repeat center center fixed;
+  -webkit-filter: contrast(175%) brightness(103%);
+  background-color: #FFFFFF;
+  background-size: cover;
 }
 
 .sh-column{

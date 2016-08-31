@@ -1,7 +1,7 @@
 import {REGISTER_USER} from '../actions/registration';
 let initialState = {
 	user: {
-		exists: false //This will be replaced with a database lookup after integration.
+		exists: true //This will be replaced with a database lookup after integration.
 	}
 };
 

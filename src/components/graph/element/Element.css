@@ -1,0 +1,23 @@
+.elementIdle{
+  fill: blue;
+  stroke: red;
+  stroke-width: 3
+}
+
+.elementSelected{
+  fill: white;
+  stroke: black;
+  stroke-width: 3
+}
+
+.elementUpstream{
+  fill: red;
+  stroke: black;
+  stroke-width: 3
+}
+
+.elementDownstream{
+  fill: green; 
+  stroke: black;
+  stroke-width: 3
+}

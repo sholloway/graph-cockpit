@@ -8,7 +8,7 @@
 * [X] Stub out all menu items.
 * [X] Build Authentication flow.
 * [X] Establish Cockpit logging solution. (console only)
-* [ ] Build User Registration flow.
+* [X] Build User Registration flow.
 * [ ] Build reset password flow.
 * [ ] Stub out all Windows & Flows.
 * [ ] Establish code coverage.
