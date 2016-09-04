@@ -1,0 +1,11 @@
+.hudZoomIn{
+  fill: gray;
+}
+
+.hudZoomOut{
+  fill: blue;
+}
+
+.hudZoomReset{
+  fill: green;
+}

@@ -7,17 +7,31 @@
   align-content: stretch;
 }
 
-.graphExplorer-CanvasContainer{
+.graphExplorerCanvasContainer{
     position: relative;
     width: 100%;
     height:100%;
 }
 
-.graphExplorer-CanvasContainer > svg{
+.graphExplorerTopSVG{
   position: absolute;
-  background-color: white;
+  background-color: purple;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
+}
+
+/*.graphExplorerCanvas{
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}*/
+
+/*Seperate Component*/
+.graphBackgroundRect{
+  fill: white;
 }
