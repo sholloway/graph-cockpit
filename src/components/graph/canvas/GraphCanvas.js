@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import './GraphCanvas.css';
+import CanvasContextMenu from './CanvasContextMenu.js';
 
 class GraphCanvas extends Component{
 	constructor(props) {
@@ -14,12 +15,14 @@ class GraphCanvas extends Component{
 	render(){
 		return(
 			<g className="graphBackgroundGroup">
+				<CanvasContextMenu displayContextMenu={this.props.displayContextMenu} />
 				<rect className="graphBackgroundRect"
 					x={this.props.minX}
 					y={this.props.minY}
 					width={this.props.width}
 					height={this.props.height}
-					onClick={this.props.handleMouseClick}/>
+					onClick={this.props.handleMouseClick}
+					onContextMenu={this.props.handleRightMouseClick}/>
 			</g>
 		);
 	}
@@ -30,7 +33,9 @@ GraphCanvas.propTypes = {
 	minY: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
 	height: PropTypes.number.isRequired,
-	handleMouseClick: PropTypes.func.isRequired
+	displayContextMenu: PropTypes.bool.isRequired,
+	handleMouseClick: PropTypes.func.isRequired,
+	handleRightMouseClick: PropTypes.func.isRequired
 };
 
 export default GraphCanvas;

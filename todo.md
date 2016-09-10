@@ -22,6 +22,13 @@
   * [ ] Export dataset.
   * [ ] Archive/Delete dataset.
 * [ ] Build first pass at the Relationship Explorer component.
+  * [ ] Canvas Zooming.
+  * [ ] Canvas Panning.
+  * [ ] Generic Context Menu
+  * [ ] Create Node.
+  * [ ] Move Node.
+  * [ ] Delete Node.
+  * [ ] Associate Nodes.
 * [ ] Build first pass at the Content View component.
 * [ ] Build first pass at the find bar.
 * [ ] Build first pass the Table View component.

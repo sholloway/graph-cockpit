@@ -19,6 +19,7 @@ class GraphExplorer extends Component{
 		this._handleZoomInClicked = this._handleZoomInClicked.bind(this);
 		this._handleZoomOutClicked = this._handleZoomOutClicked.bind(this);
 		this._handelZoomResetClicked = this._handelZoomResetClicked.bind(this);
+		this._handleCanvasRightMouseClick = this._handleCanvasRightMouseClick.bind(this);
 		this.state = {
 			viewbox: {
 				minX: 0,
@@ -35,6 +36,9 @@ class GraphExplorer extends Component{
 			zoom:{
 				currentZoom: 1, //How much the graph layout is zoomed in or out. 1 is normal.
 				zoomPoint: point(0, 0) //The point the graph layout is zoomed around. Not used when currentZoom is 1;
+			},
+			contextMenu:{
+				display: false
 			}
 		};
 	}
@@ -138,6 +142,23 @@ class GraphExplorer extends Component{
 		let svgCoords = `${svgPoint.x}, ${svgPoint.y}`;
 		let msg = `Global: ${screenCoords} | Local: ${localCoords} | SVG: ${svgCoords}`;
 		console.log(msg);
+		if (this.state.contextMenu.display == true){
+			let nextState = Object.assign({}, this.state, {
+				contextMenu:{
+					display: false
+				}
+			});
+			this.setState(nextState);
+		}
+	}
+
+	_handleCanvasRightMouseClick(event){
+		let nextState = Object.assign({}, this.state, {
+			contextMenu:{
+				display: true
+			}
+		});
+		this.setState(nextState);
 	}
 
 	/*
@@ -341,7 +362,9 @@ class GraphExplorer extends Component{
 							minY={this.state.viewbox.minX}
 							width={this.state.viewbox.width}
 							height={this.state.viewbox.height}
-							handleMouseClick={this._handleCanvasMouseClick} />
+							displayContextMenu={this.state.contextMenu.display}
+							handleMouseClick={this._handleCanvasMouseClick}
+							handleRightMouseClick={this._handleCanvasRightMouseClick}/>
 						<GraphStandardLayout
 							ref={(ref) => this.graphStandardLayout = ref}
 							minX={this.state.graphLayoutViewbox.minX}
