@@ -15,7 +15,8 @@ class GraphCanvas extends Component{
 	render(){
 		return(
 			<g className="graphBackgroundGroup">
-				<CanvasContextMenu displayContextMenu={this.props.displayContextMenu} />
+				<CanvasContextMenu displayContextMenu={this.props.displayContextMenu}
+					createItemHandler={this.props.createItemHandler}/>
 				<rect className="graphBackgroundRect"
 					x={this.props.minX}
 					y={this.props.minY}
@@ -35,7 +36,8 @@ GraphCanvas.propTypes = {
 	height: PropTypes.number.isRequired,
 	displayContextMenu: PropTypes.bool.isRequired,
 	handleMouseClick: PropTypes.func.isRequired,
-	handleRightMouseClick: PropTypes.func.isRequired
+	handleRightMouseClick: PropTypes.func.isRequired,
+	createItemHandler: PropTypes.func.isRequired
 };
 
 export default GraphCanvas;

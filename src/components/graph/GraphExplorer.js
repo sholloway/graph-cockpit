@@ -20,6 +20,7 @@ class GraphExplorer extends Component{
 		this._handleZoomOutClicked = this._handleZoomOutClicked.bind(this);
 		this._handelZoomResetClicked = this._handelZoomResetClicked.bind(this);
 		this._handleCanvasRightMouseClick = this._handleCanvasRightMouseClick.bind(this);
+		this._createItem = this._createItem.bind(this);
 		this.state = {
 			viewbox: {
 				minX: 0,
@@ -38,8 +39,13 @@ class GraphExplorer extends Component{
 				zoomPoint: point(0, 0) //The point the graph layout is zoomed around. Not used when currentZoom is 1;
 			},
 			contextMenu:{
-				display: false
-			}
+				display: false,
+				mouse: {
+					x: 0,
+					y: 0
+				}
+			},
+			nodes: this._buildNodes()
 		};
 	}
 
@@ -56,7 +62,7 @@ class GraphExplorer extends Component{
 		window.addEventListener('resize', this.handleResize);
     var width = this.canvasContainer.clientWidth;
     var height = this.canvasContainer.clientHeight;
-		var modifedState = Object.assign({}, this.state, {
+		this._setState({
 			viewbox: {
 				minX: 0,
 				minY:	0,
@@ -70,8 +76,6 @@ class GraphExplorer extends Component{
 				height: height
 			}
 		});
-		this.setState(modifedState);
-		// console.log(`${width} ${height}`);
   }
 
 	componentWillUnmount(){
@@ -131,33 +135,41 @@ class GraphExplorer extends Component{
 	inverse of the Screen CMT.
 	*/
 	_handleCanvasMouseClick(event){
-		let ctm = event.target.getCTM();
-		let screenCTM = event.target.getScreenCTM();
-		let screenPoint = this.graphStandardLayout.graphExplorerCanvas.createSVGPoint();
-		screenPoint.x = event.clientX;
-		screenPoint.y = event.clientY;
-		let svgPoint = screenPoint.matrixTransform(screenCTM.inverse());
-		let screenCoords = `${event.screenX}, ${event.screenY}`;
-		let localCoords = `${event.clientX} ${event.clientY}`;
-		let svgCoords = `${svgPoint.x}, ${svgPoint.y}`;
-		let msg = `Global: ${screenCoords} | Local: ${localCoords} | SVG: ${svgCoords}`;
-		console.log(msg);
+		let point = this._dom2SvgCoords(event.target, event.clientX, event.clientY);
+		console.log(`SVG Coordinates: ${point.x}, ${point.y}`);
 		if (this.state.contextMenu.display == true){
-			let nextState = Object.assign({}, this.state, {
+			this._setState({
 				contextMenu:{
 					display: false
 				}
 			});
-			this.setState(nextState);
 		}
 	}
 
+	_dom2SvgCoords(element, domX, domY){
+		let screenCTM = element.getScreenCTM();
+		let screenPoint = this.graphStandardLayout.graphExplorerCanvas.createSVGPoint();
+		screenPoint.x = domX;
+		screenPoint.y = domY;
+		let svgPoint = screenPoint.matrixTransform(screenCTM.inverse());
+		return svgPoint;
+	}
+
 	_handleCanvasRightMouseClick(event){
-		let nextState = Object.assign({}, this.state, {
+		let point = this._dom2SvgCoords(event.target, event.nativeEvent.clientX, event.nativeEvent.clientY);
+		this._setState({
 			contextMenu:{
-				display: true
+				display: true,
+				mouse: {
+					x: point.x,
+					y: point.y
+				}
 			}
 		});
+	}
+
+	_setState(data){
+		let nextState = Object.assign({}, this.state, data);
 		this.setState(nextState);
 	}
 
@@ -190,8 +202,23 @@ class GraphExplorer extends Component{
 			this.state.graphLayoutViewbox.height);
 		let zoomPoint = diffPoints(viewBoxPoints.maxPoint, viewBoxPoints.minPoint);
 		let graphLayoutViewbox = this._zoom(zoomAmount, zoomPoint);
-		let nextState = Object.assign({}, this.state, graphLayoutViewbox);
-		this.setState(nextState);
+		this._setState(graphLayoutViewbox);
+	}
+
+	_createItem(itemType){
+		let node = {
+			x: this.state.contextMenu.mouse.x,
+			y: this.state.contextMenu.mouse.y,
+			renderState: ElementRenderStates.IDLE,
+			data: { id: this.state.nodes.length + 1}
+		};
+		let nodes = [...this.state.nodes, node];
+		this._setState({
+			nodes: nodes,
+			contextMenu:{
+				display: false
+			}
+		});
 	}
 
 	_zoom(zoomAmount, zoomPoint){
@@ -284,14 +311,12 @@ class GraphExplorer extends Component{
 			this.state.graphLayoutViewbox.height);
 		let zoomPoint = diffPoints(viewBoxPoints.maxPoint, viewBoxPoints.minPoint);
 		let graphLayoutViewbox = this._zoom(zoomAmount, zoomPoint);
-		let nextState = Object.assign({}, this.state, graphLayoutViewbox);
-		this.setState(nextState);
+		this._setState(graphLayoutViewbox);
 	}
 
 	_handelZoomResetClicked(event){
 		let viewBoxChanges = this._resetZoom();
-		let nextState = Object.assign({}, this.state, viewBoxChanges);
-		this.setState(nextState);
+		this._setState(viewBoxChanges)
 	}
 
 	_resetZoom(){
@@ -349,7 +374,6 @@ class GraphExplorer extends Component{
 	*/
 	render(){
 		let vb = this._buildViewBox();
-		let nodes = this._buildNodes();
 		return(
 			<div className="graphExplorer">
 				<p>Graph Explorer</p>
@@ -364,14 +388,15 @@ class GraphExplorer extends Component{
 							height={this.state.viewbox.height}
 							displayContextMenu={this.state.contextMenu.display}
 							handleMouseClick={this._handleCanvasMouseClick}
-							handleRightMouseClick={this._handleCanvasRightMouseClick}/>
+							handleRightMouseClick={this._handleCanvasRightMouseClick}
+							createItemHandler={this._createItem} />
 						<GraphStandardLayout
 							ref={(ref) => this.graphStandardLayout = ref}
 							minX={this.state.graphLayoutViewbox.minX}
 							minY={this.state.graphLayoutViewbox.minX}
 							width={this.state.graphLayoutViewbox.width}
 							height={this.state.graphLayoutViewbox.height}
-							dataset={nodes}/>
+							dataset={this.state.nodes}/>
 						<GraphHud minX={this.state.viewbox.minX}
 							minY={this.state.viewbox.minX}
 							width={this.state.viewbox.width}

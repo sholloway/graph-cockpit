@@ -13,7 +13,7 @@ class CanvasContextMenu extends Component{
 	}
 
 	componentWillMount (){
-		let menuTemplate = createDefaultMenu();
+		let menuTemplate = createDefaultMenu(this.props.createItemHandler);
 		this.generatedMenu = Menu.buildFromTemplate(menuTemplate);
 	}
 
@@ -30,7 +30,8 @@ CanvasContextMenu.propTypes = {
 };
 
 CanvasContextMenu.propTypes = {
-	displayContextMenu: PropTypes.bool.isRequired
+	displayContextMenu: PropTypes.bool.isRequired,
+	createItemHandler: PropTypes.func.isRequired
 };
 
 export default CanvasContextMenu;

@@ -12,7 +12,7 @@ Paste Hierarchy
 ----------------------------------
 Find...
 */
-const createMenu = function(){
+const createMenu = function(createItem){
 	return [
 			{
 				label: 'Create Element',
@@ -20,6 +20,8 @@ const createMenu = function(){
 				click(menuItem, focusedWindow, event){
 					if(focusedWindow){
 						console.log("Create Element");
+						console.log(event);
+						createItem("ELEMENT"); //Change to have ELEMENT be an imported type.
 					}
 				}
 			},
