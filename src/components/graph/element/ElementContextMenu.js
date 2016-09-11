@@ -13,7 +13,7 @@ class ElementContextMenu extends Component{
 	}
 
 	componentWillMount (){
-		let menuTemplate = createDefaultMenu();
+		let menuTemplate = createDefaultMenu(this.props.deleteSelectedItem);
 		this.generatedMenu = Menu.buildFromTemplate(menuTemplate);
 	}
 
@@ -27,7 +27,8 @@ class ElementContextMenu extends Component{
 }
 
 ElementContextMenu.propTypes = {
-	displayContextMenu: PropTypes.bool.isRequired
+	displayContextMenu: PropTypes.bool.isRequired,
+	deleteSelectedItem: PropTypes.func.isRequired
 };
 
 export default ElementContextMenu;

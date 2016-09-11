@@ -1,16 +1,9 @@
 /** @module graph/element/templates/defaultMenu */
 
 /** Template for the Default context menu.
-Associate To
-Copy
-Delete (might just be delete key)
-Favorite | Unfavorite
-----------------------------
-Find Associated...
-Explore History...
-Paste Hierarchy
+@param {function} deleteItem: Deletes the selected item.
 */
-const createMenu = function(){
+const createMenu = function(deleteItem){
 	return [
 		{
 			label: 'Associate To',
@@ -39,6 +32,8 @@ const createMenu = function(){
 			// accelerator: 'CmdOrCtrl+F',
 			click(menuItem, focusedWindow, event){
 				console.log("Delete");
+				console.log(event);
+				deleteItem();
 			}
 		},
 		{

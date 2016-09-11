@@ -25,7 +25,8 @@ class Element extends Component{
 		return(
 			<g>
 				<ElementContextMenu
-					displayContextMenu={this.props.displayContextMenu}/>
+					displayContextMenu={this.props.displayContextMenu}
+					deleteSelectedItem={this.props.deleteSelectedItem}/>
 				<rect className={this.props.renderState}
 					x={this.props.x} y={this.props.y}
 					width="100" height="100"
@@ -53,7 +54,8 @@ Element.propTypes = {
 	data: PropTypes.object.isRequired,
 	handleOnClick: PropTypes.func.isRequired,
 	displayContextMenu: PropTypes.bool.isRequired,
-	handleOnRightClick: PropTypes.func.isRequired
+	handleOnRightClick: PropTypes.func.isRequired,
+	deleteSelectedItem: PropTypes.func.isRequired
 };
 
 export default Element;

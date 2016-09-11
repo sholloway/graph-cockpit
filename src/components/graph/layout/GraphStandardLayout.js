@@ -30,7 +30,8 @@ class GraphStandardLayout extends Component{
 							data = {node.data}
 							handleOnClick={this.props.handleElementOnClick}
 							displayContextMenu={node.displayContextMenu}
-							handleOnRightClick={this.props.handleElementOnRightClick} />;
+							handleOnRightClick={this.props.handleElementOnRightClick}
+							deleteSelectedItem={this.props.deleteSelectedItem} />;
 					})
 				}
 				</g>
@@ -51,7 +52,8 @@ GraphStandardLayout.propTypes = {
 	height: PropTypes.number.isRequired,
 	dataset: PropTypes.arrayOf(React.PropTypes.object).isRequired,
 	handleElementOnClick: PropTypes.func.isRequired,
-	handleElementOnRightClick: PropTypes.func.isRequired
+	handleElementOnRightClick: PropTypes.func.isRequired,
+	deleteSelectedItem: PropTypes.func.isRequired
 };
 
 export default GraphStandardLayout;
