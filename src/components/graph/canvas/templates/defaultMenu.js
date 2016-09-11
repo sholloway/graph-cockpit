@@ -1,16 +1,6 @@
 /** @module graph/canvas/templates/defaultMenu */
 
 /** Template for the Default context menu.
-Create Element
-Create Element Definition
-Create Note
-Create Video
-Create Web
-----------------------------------
-Paste (Copied Element)
-Paste Hierarchy
-----------------------------------
-Find...
 */
 const createMenu = function(createItem){
 	return [

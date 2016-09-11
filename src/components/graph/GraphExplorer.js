@@ -21,6 +21,8 @@ class GraphExplorer extends Component{
 		this._handelZoomResetClicked = this._handelZoomResetClicked.bind(this);
 		this._handleCanvasRightMouseClick = this._handleCanvasRightMouseClick.bind(this);
 		this._createItem = this._createItem.bind(this);
+		this._handleElementOnClick = this._handleElementOnClick.bind(this);
+		this._handleElementOnRightClick = this._handleElementOnRightClick.bind(this);
 		this.state = {
 			viewbox: {
 				minX: 0,
@@ -136,14 +138,14 @@ class GraphExplorer extends Component{
 	*/
 	_handleCanvasMouseClick(event){
 		let point = this._dom2SvgCoords(event.target, event.clientX, event.clientY);
-		console.log(`SVG Coordinates: ${point.x}, ${point.y}`);
-		if (this.state.contextMenu.display == true){
-			this._setState({
-				contextMenu:{
-					display: false
-				}
-			});
-		}
+		let nodes = this._resetNodeStates();
+		let nextState = {
+			contextMenu: {
+				display: false
+			},
+			nodes: nodes
+		};
+		this._setState(nextState);
 	}
 
 	_dom2SvgCoords(element, domX, domY){
@@ -157,6 +159,7 @@ class GraphExplorer extends Component{
 
 	_handleCanvasRightMouseClick(event){
 		let point = this._dom2SvgCoords(event.target, event.nativeEvent.clientX, event.nativeEvent.clientY);
+		let nodes = this._resetNodeStates();
 		this._setState({
 			contextMenu:{
 				display: true,
@@ -164,7 +167,8 @@ class GraphExplorer extends Component{
 					x: point.x,
 					y: point.y
 				}
-			}
+			},
+			nodes: nodes
 		});
 	}
 
@@ -209,10 +213,12 @@ class GraphExplorer extends Component{
 		let node = {
 			x: this.state.contextMenu.mouse.x,
 			y: this.state.contextMenu.mouse.y,
-			renderState: ElementRenderStates.IDLE,
+			renderState: ElementRenderStates.SELECTED,
+			displayContextMenu: false,
 			data: { id: this.state.nodes.length + 1}
 		};
-		let nodes = [...this.state.nodes, node];
+		let nodes = this._resetNodeStates();
+		nodes.push(node);
 		this._setState({
 			nodes: nodes,
 			contextMenu:{
@@ -319,6 +325,39 @@ class GraphExplorer extends Component{
 		this._setState(viewBoxChanges)
 	}
 
+	_handleElementOnClick(elementId){
+		let nodes = this.state.nodes.map(function(node){
+			if (node.data.id == elementId){
+				node.renderState = ElementRenderStates.SELECTED
+			}else{
+				node.renderState = ElementRenderStates.IDLE;
+			}
+			node.displayContextMenu = false;
+			return node;
+		});
+		this._setState({nodes: nodes});
+	}
+
+	_handleElementOnRightClick(elementId){
+		let nodes = this._setNodesContextMenu(elementId);
+		this._setState({nodes: nodes});
+	}
+
+	_setNodesContextMenu(elementId){
+		return this.state.nodes.map(function(node){
+			node.displayContextMenu = (node.data.id == elementId);
+			return node;
+		});
+	}
+
+	_resetNodeStates(){
+		return this.state.nodes.map(function(node){
+			node.displayContextMenu = false;
+			node.renderState = ElementRenderStates.IDLE;
+			return node;
+		});
+	}
+
 	_resetZoom(){
 		let viewBoxChanges = {
 			graphLayoutViewbox: {
@@ -396,7 +435,9 @@ class GraphExplorer extends Component{
 							minY={this.state.graphLayoutViewbox.minX}
 							width={this.state.graphLayoutViewbox.width}
 							height={this.state.graphLayoutViewbox.height}
-							dataset={this.state.nodes}/>
+							dataset={this.state.nodes}
+							handleElementOnClick={this._handleElementOnClick}
+							handleElementOnRightClick={this._handleElementOnRightClick} />
 						<GraphHud minX={this.state.viewbox.minX}
 							minY={this.state.viewbox.minX}
 							width={this.state.viewbox.width}
@@ -422,24 +463,28 @@ class GraphExplorer extends Component{
 		nodes.push({
 			x: 100, y: 100,
 			renderState: ElementRenderStates.IDLE,
+			displayContextMenu: false,
 			data: { id: 1}
 		});
 
 		nodes.push({
 			x: 300, y: 300,
 			renderState: ElementRenderStates.SELECTED,
+			displayContextMenu: false,
 			data: { id: 2}
 		});
 
 		nodes.push({
 			x: 500, y: 500,
 			renderState: ElementRenderStates.UPSTREAM,
+			displayContextMenu: false,
 			data: { id: 3}
 		});
 
 		nodes.push({
 			x: 700, y: 700,
 			renderState: ElementRenderStates.DOWNSTREAM,
+			displayContextMenu: false,
 			data: { id: 4}
 		});
 		return nodes;

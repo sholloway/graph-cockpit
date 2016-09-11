@@ -23,11 +23,14 @@ class GraphStandardLayout extends Component{
 				viewBox={vb}>
 				<g className="graphDataset">
 				{
-					this.props.dataset.map(function(node){
+					this.props.dataset.map((node) => {
 						return <Element key = {node.data.id}
 							x = {node.x} y = {node.y}
 							renderState = {node.renderState}
-							data = {node.data} />;
+							data = {node.data}
+							handleOnClick={this.props.handleElementOnClick}
+							displayContextMenu={node.displayContextMenu}
+							handleOnRightClick={this.props.handleElementOnRightClick} />;
 					})
 				}
 				</g>
@@ -46,7 +49,9 @@ GraphStandardLayout.propTypes = {
 	minY: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
 	height: PropTypes.number.isRequired,
-	dataset: PropTypes.arrayOf(React.PropTypes.object).isRequired
+	dataset: PropTypes.arrayOf(React.PropTypes.object).isRequired,
+	handleElementOnClick: PropTypes.func.isRequired,
+	handleElementOnRightClick: PropTypes.func.isRequired
 };
 
 export default GraphStandardLayout;
