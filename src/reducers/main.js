@@ -13,10 +13,10 @@ export default function main(state=initialState, action){
 			});
 			break;
 		case CLOSE_FIND_BAR_REQUESTED:
-		nextState = Object.assign({}, state,{
-			findBar: {displayed: false}
-		});
-		break;
+			nextState = Object.assign({}, state,{
+				findBar: {displayed: false}
+			});
+			break;
 		default:
 			nextState = state;
 	}

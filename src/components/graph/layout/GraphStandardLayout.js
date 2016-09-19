@@ -23,7 +23,7 @@ class GraphStandardLayout extends Component{
 				viewBox={vb}>
 				<g className="graphDataset">
 				{
-					this.props.dataset.map((node) => {
+					this.props.sceneGraph.nodes.map((node) => {
 						return <Element key = {node.data.id}
 							x = {node.x} y = {node.y}
 							renderState = {node.renderState}
@@ -31,7 +31,11 @@ class GraphStandardLayout extends Component{
 							handleOnClick={this.props.handleElementOnClick}
 							displayContextMenu={node.displayContextMenu}
 							handleOnRightClick={this.props.handleElementOnRightClick}
-							deleteSelectedItem={this.props.deleteSelectedItem} />;
+							deleteSelectedItem={this.props.deleteSelectedItem}
+							moving={node.moving}
+							dragStart={this.props.elementDragStart}
+							drag={this.props.elementDrag}
+							dragEnd={this.props.elementDragEnd}/>;
 					})
 				}
 				</g>
@@ -50,10 +54,13 @@ GraphStandardLayout.propTypes = {
 	minY: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
 	height: PropTypes.number.isRequired,
-	dataset: PropTypes.arrayOf(React.PropTypes.object).isRequired,
 	handleElementOnClick: PropTypes.func.isRequired,
 	handleElementOnRightClick: PropTypes.func.isRequired,
-	deleteSelectedItem: PropTypes.func.isRequired
+	deleteSelectedItem: PropTypes.func.isRequired,
+	elementDragStart: PropTypes.func.isRequired,
+	elementDrag: PropTypes.func.isRequired,
+	elementDragEnd: PropTypes.func.isRequired,
+	sceneGraph: PropTypes.object.isRequired
 };
 
 export default GraphStandardLayout;

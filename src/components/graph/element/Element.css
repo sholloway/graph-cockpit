@@ -7,7 +7,8 @@
 .elementSelected{
   fill: white;
   stroke: black;
-  stroke-width: 3
+  stroke-width: 3;
+  cursor: move;
 }
 
 .elementUpstream{
@@ -17,7 +18,7 @@
 }
 
 .elementDownstream{
-  fill: green; 
+  fill: green;
   stroke: black;
   stroke-width: 3
 }

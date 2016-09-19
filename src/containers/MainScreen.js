@@ -15,7 +15,9 @@ function mapStateToProps(state){
   return {
 		findBar: {
 			displayed: state.main.findBar.displayed
-		}
+		},
+		sceneGraph: state.graphManipulation.sceneGraph,
+		contextMenu: state.standardLayout.contextMenu
 	};
 }
 
@@ -36,7 +38,18 @@ class MainScreen extends Component{
 			<div className="main sh-column">
 				<div className="main-content sh-row">
 					<ApplicationMenu launchFindElementGUI={this.props.launchFindElementGUI}/>
-					<GraphExplorer />
+					<GraphExplorer sceneGraph={this.props.sceneGraph}
+						contextMenu={this.props.contextMenu}
+						createElement={this.props.createElement}
+						deleteElement={this.props.deleteElement}
+						canvasClicked={this.props.standardLayoutCanvasClicked}
+						canvasRightClicked={this.props.standardLayoutCanvasRightClicked}
+						elementClicked={this.props.standardLayoutElementClicked}
+						displayElementContexMenu={this.props.standardLayoutDisplayContextMenu}
+						elementDragStarted={this.props.standardLayoutDragStarted}
+						elementDrag={this.props.standardLayoutDrag}
+						elementDragEnded={this.props.standardLayoutDragEnded}
+						/>
 					<ContentView />
 				</div>
 				<FindBar displayed={this.props.findBar.displayed}

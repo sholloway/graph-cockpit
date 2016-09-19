@@ -6,12 +6,21 @@ import CanvasContextMenu from './CanvasContextMenu.js';
 
 class GraphCanvas extends Component{
 	constructor(props) {
-    super(props);
+    super(props);		
 	}
 
 	componentWillMount (){
 	}
 
+	/*
+	SVG Mouse Events
+		click
+		mousedown
+		mouseup
+		mouseover
+		mousemove
+		mouseout
+	*/
 	render(){
 		return(
 			<g className="graphBackgroundGroup">
