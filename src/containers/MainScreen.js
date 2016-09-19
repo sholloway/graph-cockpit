@@ -17,7 +17,8 @@ function mapStateToProps(state){
 			displayed: state.main.findBar.displayed
 		},
 		sceneGraph: state.graphManipulation.sceneGraph,
-		contextMenu: state.standardLayout.contextMenu
+		contextMenu: state.standardLayout.contextMenu,
+		mouse: state.standardLayout.mouse
 	};
 }
 
@@ -40,6 +41,7 @@ class MainScreen extends Component{
 					<ApplicationMenu launchFindElementGUI={this.props.launchFindElementGUI}/>
 					<GraphExplorer sceneGraph={this.props.sceneGraph}
 						contextMenu={this.props.contextMenu}
+						mouse={this.props.mouse}
 						createElement={this.props.createElement}
 						deleteElement={this.props.deleteElement}
 						canvasClicked={this.props.standardLayoutCanvasClicked}

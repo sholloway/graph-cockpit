@@ -80,17 +80,19 @@ function generateId(){
 	return shortid.generate();
 }
 
-export function standardLayoutDragStarted(elementId){
+export function standardLayoutDragStarted(elementId, x, y){
 	return {
 		type: STANDARD_LAYOUT_ELEMENT_DRAG_START,
-		elementId: elementId
+		elementId: elementId,
+		point: {x: x, y: y}
 	};
 }
 
-export function standardLayoutDrag(elementId){
+export function standardLayoutDrag(elementId, x, y){
 	return {
 		type: STANDARD_LAYOUT_ELEMENT_DRAG,
-		elementId: elementId
+		elementId: elementId,
+		point: {x: x, y: y}
 	};
 }
 

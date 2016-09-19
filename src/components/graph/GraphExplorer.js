@@ -23,6 +23,7 @@ class GraphExplorer extends Component{
 		this._handleCanvasRightMouseClick = this._handleCanvasRightMouseClick.bind(this);
 		this._createItem = this._createItem.bind(this);
 		this._elementDragStart = this._elementDragStart.bind(this);
+		this._elementDrag = this._elementDrag.bind(this);
 		this.state = {
 			viewbox: {
 				minX: 0,
@@ -185,8 +186,8 @@ class GraphExplorer extends Component{
 	}
 
 	_createItem(itemType){
-		this.props.createElement(this.props.contextMenu.mouse.x,
-			this.props.contextMenu.mouse.y, 'ELEMENT');
+		this.props.createElement(this.props.mouse.x,
+			this.props.mouse.y, 'ELEMENT');
 	}
 
 	_zoom(zoomAmount, zoomPoint){
@@ -286,7 +287,6 @@ class GraphExplorer extends Component{
 		let viewBoxChanges = this._resetZoom();
 		this._setState(viewBoxChanges)
 	}
-
 	_setNodesContextMenu(elementId){
 		return this.state.nodes.map(function(node){
 			node.displayContextMenu = (node.data.id == elementId);
@@ -312,7 +312,17 @@ class GraphExplorer extends Component{
 
 	_elementDragStart(elementId, renderState, mouseEvent){
 		if (renderState == ElementRenderStates.SELECTED){
-			this.props.elementDragStarted(elementId);
+			let point = this._dom2SvgCoords(mouseEvent.target,
+				mouseEvent.nativeEvent.clientX, mouseEvent.nativeEvent.clientY);
+			this.props.elementDragStarted(elementId, point.x, point.y);
+		}
+	}
+
+	_elementDrag(elementId, renderState, mouseEvent){
+		if (renderState == ElementRenderStates.SELECTED){
+			let point = this._dom2SvgCoords(mouseEvent.target,
+				mouseEvent.nativeEvent.clientX, mouseEvent.nativeEvent.clientY);
+			this.props.elementDrag(elementId, point.x, point.y);
 		}
 	}
 
@@ -381,7 +391,7 @@ class GraphExplorer extends Component{
 							handleElementOnRightClick={this.props.displayElementContexMenu}
 							deleteSelectedItem={this.props.deleteElement}
 							elementDragStart={this._elementDragStart}
-							elementDrag={this.props.elementDrag}
+							elementDrag={this._elementDrag}
 							elementDragEnd={this.props.elementDragEnded}
 							sceneGraph={this.props.sceneGraph} />
 						<GraphHud minX={this.state.viewbox.minX}
@@ -446,7 +456,8 @@ GraphExplorer.propTypes = {
 	sceneGraph: PropTypes.object.isRequired,
 	canvasClicked: PropTypes.func.isRequired,
 	canvasRightClicked: PropTypes.func.isRequired,
-	contextMenu: PropTypes.object.isRequired
+	contextMenu: PropTypes.object.isRequired,
+	mouse: PropTypes.object.isRequired
 };
 
 export default GraphExplorer;

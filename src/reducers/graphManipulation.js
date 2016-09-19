@@ -50,7 +50,7 @@ export default function main(state=initialState, action){
 		case STANDARD_LAYOUT_ELEMENT_CLICKED:
 			nodes = state.sceneGraph.nodes.map(function(node){
 				if (node.data.id == action.elementId){
-					node.renderState = ElementRenderStates.SELECTED
+					node.renderState = ElementRenderStates.SELECTED;
 				}else{
 					node.renderState = ElementRenderStates.IDLE;
 				}
@@ -67,6 +67,16 @@ export default function main(state=initialState, action){
 			nodes = state.sceneGraph.nodes.map(function(node){
 				if (node.data.id == action.elementId){
 					node.moving = true;
+					node.draging = {
+						originalPosition: {
+							x: node.x,
+							y: node.y
+						},
+						mouse: {
+							x: action.point.x,
+							y: action.point.y
+						}
+					};
 				}
 				return node;
 			});
@@ -77,12 +87,26 @@ export default function main(state=initialState, action){
 			});
 			break;
 		case STANDARD_LAYOUT_ELEMENT_DRAG:
-			nextState = state;
+			nodes = state.sceneGraph.nodes.map(function(node){
+				if (node.moving){
+					let dx = action.point.x - node.draging.mouse.x;
+					let dy = action.point.y - node.draging.mouse.y;
+					node.x = node.draging.originalPosition.x + dx;
+					node.y = node.draging.originalPosition.y + dy;
+				}
+				return node;
+			});
+			nextState = Object.assign({}, state, {
+				sceneGraph:{
+					nodes: nodes
+				}
+			});
 			break;
 		case STANDARD_LAYOUT_ELEMENT_DRAG_END:
 			nodes = state.sceneGraph.nodes.map(function(node){
-				if (node.data.id == action.elementId){
+				if (node.moving){
 					node.moving = false;
+					node.dragging = null;
 				}
 				return node;
 			});

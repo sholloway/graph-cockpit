@@ -57,7 +57,7 @@ class Element extends Component{
 	}
 
 	_onMouseMove(event){
-		this.props.drag(this.props.data.id);
+		this.props.drag(this.props.data.id, this.props.renderState, event);
 	}
 }
 

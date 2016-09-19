@@ -9,8 +9,6 @@ const createMenu = function(createItem){
 				// accelerator: 'CmdOrCtrl+F',
 				click(menuItem, focusedWindow, event){
 					if(focusedWindow){
-						console.log("Create Element");
-						console.log(event);
 						createItem("ELEMENT"); //Change to have ELEMENT be an imported type.
 					}
 				}
