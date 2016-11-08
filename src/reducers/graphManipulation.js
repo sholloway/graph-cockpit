@@ -48,15 +48,32 @@ export default function main(state=initialState, action){
 			});
 			break;
 		case STANDARD_LAYOUT_ELEMENT_CLICKED:
-			nodes = state.sceneGraph.nodes.map(function(node){
-				if (node.data.id == action.elementId){
+			/*
+			When a node is selected, bring it to the foreground.
+			Two approaches. Manipulate z-Index, reorder array. Let's try the array method.
+			1. Find the selected Node.
+			2. Remove it from the array.
+			3. Set all remaining nodes to IDLE.
+			4. Set the clicked node to SELECTED.
+			5. Place the node at the head of the array.
+			*/
+
+			let selectedNodes = state.sceneGraph.nodes
+				.filter((node) => {return node.data.id == action.elementId;})
+				.map((node) => {
 					node.renderState = ElementRenderStates.SELECTED;
-				}else{
+					node.displayContextMenu = false;
+					return node;
+				});
+
+			let unselectedNodes = state.sceneGraph.nodes
+				.filter((node) => {return node.data.id != action.elementId})
+				.map((node) => {
 					node.renderState = ElementRenderStates.IDLE;
-				}
-				node.displayContextMenu = false;
-				return node;
-			});
+					node.displayContextMenu = false;
+					return node;
+				});
+			let nodes = unselectedNodes.concat(selectedNodes);
 			nextState = Object.assign({}, state, {
 				sceneGraph:{
 					nodes: nodes
@@ -91,8 +108,8 @@ export default function main(state=initialState, action){
 				if (node.moving){
 					let dx = action.point.x - node.draging.mouse.x;
 					let dy = action.point.y - node.draging.mouse.y;
-					node.x = node.draging.originalPosition.x + dx;
-					node.y = node.draging.originalPosition.y + dy;
+					node.x = Math.round(node.draging.originalPosition.x + dx);
+					node.y = Math.round(node.draging.originalPosition.y + dy);
 				}
 				return node;
 			});

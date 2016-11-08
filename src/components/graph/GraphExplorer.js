@@ -24,6 +24,7 @@ class GraphExplorer extends Component{
 		this._createItem = this._createItem.bind(this);
 		this._elementDragStart = this._elementDragStart.bind(this);
 		this._elementDrag = this._elementDrag.bind(this);
+		this._canvasMouseMove = this._canvasMouseMove.bind(this);
 		this.state = {
 			viewbox: {
 				minX: 0,
@@ -372,7 +373,9 @@ class GraphExplorer extends Component{
 					className="graphExplorerCanvasContainer">
 					<svg className="graphExplorerTopSVG"
 						ref={(ref) => this.svg = ref}
-						version="1.1" viewBox={vb}>
+						version="1.1" viewBox={vb}
+						onMouseMove={this._canvasMouseMove}
+						>
 						<GraphCanvas minX={this.state.viewbox.minX}
 							minY={this.state.viewbox.minX}
 							width={this.state.viewbox.width}
@@ -406,8 +409,16 @@ class GraphExplorer extends Component{
 			</div>
 		);
 	}
-	/*
-	*/
+
+	_canvasMouseMove(mouseEvent){
+		let selectedNodes = this.props.sceneGraph.nodes.filter((node) => {return node.renderState == ElementRenderStates.SELECTED && node.moving == true;});
+		if (selectedNodes.length > 0){
+			let point = this._dom2SvgCoords(mouseEvent.target, mouseEvent.nativeEvent.clientX, mouseEvent.nativeEvent.clientY);
+			selectedNodes.forEach((node) => {
+				this.props.elementDrag(node.data.id, point.x, point.y);
+			});
+		}
+	}
 
 	_buildViewBox(){
 		let vb = `${this.state.viewbox.minX} ${this.state.viewbox.minY} ${this.state.viewbox.width} ${this.state.viewbox.height}`;

@@ -1,7 +1,7 @@
 .elementIdle{
-  fill: blue;
-  stroke: red;
-  stroke-width: 3
+  fill: white;
+  stroke: black;
+  stroke-width: 1
 }
 
 .elementSelected{
@@ -9,6 +9,7 @@
   stroke: black;
   stroke-width: 3;
   cursor: move;
+  shape-rendering: crispEdges;
 }
 
 .elementUpstream{

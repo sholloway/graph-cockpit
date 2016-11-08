@@ -13,26 +13,41 @@ class Element extends Component{
 		this._onMouseDown = this._onMouseDown.bind(this);
 		this._onMouseDown = this._onMouseDown.bind(this);
 		this._onMouseUp = this._onMouseUp.bind(this);
-		this._onMouseMove = this._onMouseMove.bind(this);
 	}
 
 	componentWillMount (){
 	}
 
 	render(){
+		let radius = 15;
+		let width = 100;
+		let height = 100;
+		let path = `M${this.props.x} ${this.props.y},
+			H${this.props.x + width - radius}
+			A${radius},${radius} 0 0 1 ${radius},${radius}
+			${this.props.x + width} ${this.props.y + radius},
+			${this.props.x + width} ${this.props.y + height},
+			${this.props.x} ${this.props.y + height} Z`;
+
 		return(
 			<g>
 				<ElementContextMenu
 					displayContextMenu={this.props.displayContextMenu}
 					deleteSelectedItem={this.props.deleteSelectedItem}/>
+					{/*<path className={this.props.renderState}
+						d={path}
+						onClick={this._onClick}
+						onMouseDown={this._onMouseDown}
+						onMouseUp={this._onMouseUp}
+						onMouseMove={this._onMouseMove}
+						onContextMenu={this._onRightClick}/>*/}
 				<rect className={this.props.renderState}
 					x={this.props.x} y={this.props.y}
 					width="100" height="100"
-					transform="matrix(1 0 0 1 0 0)"
+					rx="15" ry="15"
 					onClick={this._onClick}
 					onMouseDown={this._onMouseDown}
 					onMouseUp={this._onMouseUp}
-					onMouseMove={this._onMouseMove}
 					onContextMenu={this._onRightClick}/>
 			</g>
 		);
@@ -54,10 +69,6 @@ class Element extends Component{
 
 	_onMouseUp(event){
 		this.props.dragEnd();
-	}
-
-	_onMouseMove(event){
-		this.props.drag(this.props.data.id, this.props.renderState, event);
 	}
 }
 
