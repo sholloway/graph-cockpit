@@ -26,8 +26,7 @@
   * [ ] Canvas Panning.
   * [ ] Generic Context Menu
   * [ ] Create Node.
-  * [ ] Move Node.
-    * Note: Currently the drag listener is on the Node, this needs to move up to the SVG element. Also the selected node, needs to be put at the top of the rendering stack.
+  * [X] Move Node.
     * After this is fixed, I need to introduce unit tests.
     * Then redesign the look and feel to fit the architectural drawings I saw in MOMA.
   * [ ] Delete Node.

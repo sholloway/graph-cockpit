@@ -15,8 +15,8 @@ class Element extends Component{
 		this._onMouseUp = this._onMouseUp.bind(this);
 	}
 
-	componentWillMount (){
-	}
+	componentWillMount(){}
+	componentDidMount(){}
 
 	render(){
 		let radius = 15;

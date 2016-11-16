@@ -1,9 +1,15 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }]*/
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Electron from 'electron';
-const remote = Electron.remote;
-const Menu = remote.Menu;
+import {remote} from 'electron';
+
+var Menu;
+if(remote){
+	//In the rendering process and not running in a test.
+	//Need a way to rewire the imports, but so far all attempts to rewire
+	//a module has been complicated due to the combination of babel and webpack.
+	Menu = remote.Menu;
+}
 
 import createDefaultMenu from './templates/defaultMenu.js';
 
