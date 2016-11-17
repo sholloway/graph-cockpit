@@ -12,7 +12,7 @@
 * [ ] Build reset password flow.
 * [ ] Stub out all Windows & Flows.
 * [ ] Establish code coverage.
-* [ ] Establish unit tests.
+* [X] Establish unit tests.
 * [ ] Integrate with Engine Harness.
 * [ ] Create flow orientated acceptance tests.
 * [ ] Establish TLS between Cockpit & Engine.

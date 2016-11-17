@@ -1,0 +1,3 @@
+instrumentation:
+  excludes: ['*Spec.js']
+  extensions: ['.js', '.jsx']
