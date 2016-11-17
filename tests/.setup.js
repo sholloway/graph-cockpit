@@ -10,12 +10,9 @@ require('babel-register')({
 });
 
 let jsdom = require('jsdom').jsdom;
-
 let exposedProperties = ['window', 'navigator', 'document'];
-
 global.document = jsdom('<!doctype html><html><body></body></html>');
 global.window = document.defaultView;
-
 
 Object.keys(document.defaultView).forEach((property) => {
   if (typeof global[property] === 'undefined') {
@@ -27,5 +24,3 @@ Object.keys(document.defaultView).forEach((property) => {
 global.navigator = {
   userAgent: 'node.js'
 };
-
-// global.window.electron =  require('electron');

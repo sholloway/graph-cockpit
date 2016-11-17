@@ -9,9 +9,7 @@
     "hot-deploy": "./node_modules/.bin/webpack-dev-server",
     "electron-rebuild": "./node_modules/.bin/electron-rebuild",
     "docs": "./node_modules/.bin/jsdoc --recurse  -d docs src/",
-    "test": "NODE_PATH=. node_modules/mocha/bin/mocha --require babel-register --recursive -R spec tests/unit",
-    "babel-test": "NODE_ENV=test NODE_PATH=. BABEL_DISABLE_CACHE=1 node_modules/mocha/bin/mocha --compilers js:babel-register  --recursive --require tests/.setup.js tests/**/*Spec.js",
-    "wp-test": "mocha-webpack --growl --colors --webpack-config webpack.config-test.babel.js \"tests/**/*Spec.js\"",
+    "test": "NODE_ENV=test NODE_PATH=. BABEL_DISABLE_CACHE=1 node_modules/mocha/bin/mocha --compilers js:babel-register  --recursive --require tests/.setup.js tests/**/*Spec.js",
     "cov": ""
   },
   "repository": {
