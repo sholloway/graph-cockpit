@@ -9,7 +9,7 @@ module.exports = {
         port: '2324'
       }
     },
-    graphdb{
+    graphdb:{
       path: '/Applications/Mod89\ Machine.app/Contents/db'
     },
     logging:{

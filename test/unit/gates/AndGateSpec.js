@@ -35,4 +35,18 @@ describe('AndGateEmitter', () => {
     //way to test this.
     expect(trap.calledOnce).to.equal(true);
   });
+
+  it ('should trip inputA', () => {
+    expect(andGate.state()).to.equal(0);
+    andGate.emit('inputA');
+    expect(andGate.state()).to.equal(1);
+    expect(andGate.inputATripped()).to.equal(true);
+  });
+
+  it ('should trip inputB', () => {
+    expect(andGate.state()).to.equal(0);
+    andGate.emit('inputB');
+    expect(andGate.state()).to.equal(1);
+    expect(andGate.inputBTripped()).to.equal(true);
+  });
 });

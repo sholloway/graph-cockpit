@@ -29,6 +29,14 @@ class AndGateEmitter extends EventEmitter{
     this.inputA = 0;
     this.inputB = 0;
   }
+
+  inputATripped(){
+    return this.inputA == 1;
+  }
+
+  inputBTripped(){
+    return this.inputB == 1;
+  }
 }
 
-export default AndGateEmitter;
+module.exports = AndGateEmitter;

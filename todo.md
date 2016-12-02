@@ -13,7 +13,7 @@
 * [ ] Stub out all Windows & Flows.
 * [ ] Establish code coverage.
 * [X] Establish unit tests.
-* [ ] Integrate with Engine Harness.
+* [X] Integrate with Engine Harness.
 * [ ] Create flow orientated acceptance tests.
 * [ ] Establish TLS between Cockpit & Engine.
 * [ ] Create dataset management.
