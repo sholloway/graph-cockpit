@@ -1,0 +1,21 @@
+.lightParticle{
+  stroke: none;
+}
+
+@keyframes fall{
+  from {
+    transform: translateY(-400px);
+  }
+  to {
+    transform: translateY(2000px);
+  }
+}
+
+@keyframes alt-fall{
+  from {
+    transform: translateY(-1000px);
+  }
+  to {
+    transform: translateY(-100px);
+  }
+}

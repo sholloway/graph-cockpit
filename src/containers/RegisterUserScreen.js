@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import RegistrationHealth, {HEALTH_RENDER_STATE} from '../components/registration/health/RegistrationHealth';
+// import RegistrationHealth, {HEALTH_RENDER_STATE} from '../components/registration/health/RegistrationHealth';
+import LightParticleColumn, {HEALTH_RENDER_STATE} from '../components/registration/health/LightParticleColumn';
 import RegistrationMessage from '../components/registration/msg/RegistrationMessage';
 import RegistrationPrompt from '../components/registration/prompt/RegistrationPrompt';
 import RegistrationNav from '../components/registration/nav/RegistrationNav';
@@ -65,25 +66,24 @@ class RegistrationContainer extends Component{
 	}
 
 	handleUsernameChange(event){
-		//event.target.value
-		let nextState = Object.assign({}, this.state, {user: { username: event.target.value }});
+    let user = Object.assign({}, this.state.user, { username: event.target.value });
+		let nextState = Object.assign({}, this.state, { user: user});
 		this.setState(nextState);
 	}
 
 	handlePasswordChange(event){
-		//event.target.value
-		let nextState = Object.assign({}, this.state, {user: { password: event.target.value }});
+		let user = Object.assign({}, this.state.user, { password: event.target.value });
+		let nextState = Object.assign({}, this.state, { user: user});
 		this.setState(nextState);
 	}
 
 	handleEmailChange(event){
-		//event.target.value
-		let nextState = Object.assign({}, this.state, {user: { emailAddress: event.target.value } });
+    let user = Object.assign({}, this.state.user, { emailAddress: event.target.value });
+		let nextState = Object.assign({}, this.state, { user: user});
 		this.setState(nextState);
 	}
 
 	handleCodeChange(event){
-		//event.target.value
 		let nextState = Object.assign({}, this.state, {verificationCode: event.target.value});
 		this.setState(nextState);
 	}
@@ -91,7 +91,7 @@ class RegistrationContainer extends Component{
 	render(){
 		return (
 			<div className="registerUser-overlay">
-				<RegistrationHealth renderState={this.state.healthRenderState}/>
+				<LightParticleColumn renderState={this.state.healthRenderState}/>
 				<div className="registerUser centered-widget sh-column">
 					<RegistrationMessage phase={this.state.phase}
             status={this.state.status}

@@ -6,8 +6,19 @@ export default websocket => store => next => action => {
   }else{
     switch (action.type){
       case 'REGISTER_USER_REQUEST':
-        // ws.send(...); //Send the web socket request to the engine.
         console.log('EngineWebSocketMiddleware: REGISTER_USER_REQUEST');
+        let request = {
+          user: 'Sam',
+          actionType: 'Create',
+          scope: 'UserSpace',
+          entityType: 'DataSet',
+          filter: 'None',
+          options: {
+            name: 'First Dataset',
+            description: 'Trying to establish a websocket connection.'
+          }
+        };
+        websocket.send(JSON.stringify(request));
         break;
       case 'SET_CONNECTION_STATE':
         console.log('EngineWebSocketMiddleware: SET_CONNECTION_STATE');

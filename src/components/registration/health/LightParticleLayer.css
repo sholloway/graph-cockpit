@@ -1,0 +1,16 @@
+.lightParticleLayer-container{
+  position: absolute;
+  z-index: 0;
+  width: 100px;
+  height: 100%;
+  right: 0px;
+}
+
+/*SVG canvas*/
+.lightParticleLayer{
+  position: absolute;
+  /*background-color: black;*/
+  width: 100px;
+  height: 100%;
+  right: 0px;
+}

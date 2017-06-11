@@ -21,7 +21,7 @@ const engineArgs = [`-Dlog-level=${config.engine.logging.level}`,
 
 const engineWorkingDir = path.join(__dirname, './lib');
 const engineOptions = {
-  cwd: engineWorkingDir //Current working directory of the child process (Engine).
+  cwd: engineWorkingDir // Current working directory of the child process (Engine).
 };
 
 const bootAndGate = new AndGateEmitter();

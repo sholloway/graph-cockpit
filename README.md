@@ -11,14 +11,27 @@ Status: Under active development working towards version 0.1.0. Not stable. Do n
 brew install node
 ```
 
+### Development
+The application is an Electron application. To run it without bundling you
+need to start the server side component and then launch the Electron app.
+This can be done with two terminals.
+1. In a terminal, start the Node.js server side application.
+  ```shell
+  npm run hot-deploy
+  ```
+2. In a second terminal, start Electron via WebPack development server.
+  ```shell
+  npm run start-hot
+  ```
+
 ### NPM Tasks
 | Task     | Description                                          |
 |----------|------------------------------------------------------|
 | list     | List installed npm packages with their dependencies. |
 | outdated | List all installed packages for which a latest version of package is available in npm registry. |
 | start    | Runs the application. Must start the webpack server first via the watch task. |
-| watch | Compiles the webpack bundle and launchs the webpack dev server. |
-| docs | Generates the JavaScript documentation. |
+| watch    | Compiles the webpack bundle and launchs the webpack dev server. |
+| docs     | Generates the JavaScript documentation. |
 
 ## Development
 ### Updating Dependencies
