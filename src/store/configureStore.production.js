@@ -4,10 +4,10 @@ import { createStore, applyMiddleware } from 'redux';
 import { hashHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
+import wsMiddleware from '../communication/ws/EngineWebSocketMiddleware';
 
-const routerMiddle = routerMiddleware(hashHistory);
-const enhancer = applyMiddleware(routerMiddle);
-
-export default function configureStore(initialState) {
+export default function configureStore(initialState, websocket) {
+  const routerMiddle = routerMiddleware(hashHistory);
+  const enhancer = applyMiddleware(routerMiddle, wsMiddleware(websocket));
   return createStore(rootReducer, initialState, enhancer);
 }

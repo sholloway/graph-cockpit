@@ -103,6 +103,7 @@ function shutdown(){
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', () => {
+  console.log('Electron Ready');
   bootAndGate.emit('inputB');
 });
 

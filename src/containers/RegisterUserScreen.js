@@ -41,14 +41,18 @@ class RegistrationContainer extends Component{
 			phase: PHASE_TYPES.INTRODUCTION,
 			status: STATUS_TYPES.OK,
       healthRenderState: HEALTH_RENDER_STATE.INITIALIZE,
-			nickname: '',
-			password: '',
-			emailAddress: '',
+      user:{
+  			username: '',
+        firstName: '',
+        lastName: '',
+  			password: '',
+  			emailAddress: ''
+      },
 			verificationCode: ''
 		};
 		this.navBack = this.navBack.bind(this);
 		this.navForward = this.navForward.bind(this);
-		this.handleNicknameChange = this.handleNicknameChange.bind(this);
+		this.handleUsernameChange = this.handleUsernameChange.bind(this);
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
 		this.handleEmailChange = this.handleEmailChange.bind(this);
 		this.handleCodeChange = this.handleCodeChange.bind(this);
@@ -60,21 +64,21 @@ class RegistrationContainer extends Component{
 		}
 	}
 
-	handleNicknameChange(event){
+	handleUsernameChange(event){
 		//event.target.value
-		let nextState = Object.assign({}, this.state, {nickname: event.target.value});
+		let nextState = Object.assign({}, this.state, {user: { username: event.target.value }});
 		this.setState(nextState);
 	}
 
 	handlePasswordChange(event){
 		//event.target.value
-		let nextState = Object.assign({}, this.state, {password: event.target.value});
+		let nextState = Object.assign({}, this.state, {user: { password: event.target.value }});
 		this.setState(nextState);
 	}
 
 	handleEmailChange(event){
 		//event.target.value
-		let nextState = Object.assign({}, this.state, {emailAddress: event.target.value});
+		let nextState = Object.assign({}, this.state, {user: { emailAddress: event.target.value } });
 		this.setState(nextState);
 	}
 
@@ -91,16 +95,16 @@ class RegistrationContainer extends Component{
 				<div className="registerUser centered-widget sh-column">
 					<RegistrationMessage phase={this.state.phase}
             status={this.state.status}
-            nickname={this.state.nickname} />
+            nickname={this.state.user.username} />
 					<div className="sh-column interaction">
 						<RegistrationPrompt ref={(ref) => this.prompt = ref}
 							phase={this.state.phase}
 							status={this.state.status}
-							nickname={this.state.nickname}
-							password={this.state.password}
-							emailAddress={this.state.emailAddress}
+							nickname={this.state.user.username}
+							password={this.state.user.password}
+							emailAddress={this.state.user.emailAddress}
 							verificationCode={this.state.verificationCode}
-							handleNicknameChange={this.handleNicknameChange}
+							handleNicknameChange={this.handleUsernameChange}
 							handlePasswordChange={this.handlePasswordChange}
 							handleEmailChange={this.handleEmailChange}
 							handleCodeChange={this.handleCodeChange}
@@ -133,7 +137,7 @@ class RegistrationContainer extends Component{
         //From here fire an action so the top level state has the user registered.
         //Then on componentWillUpdate, do the route to /home.
         console.log("about to fire registerUser action");
-        this.props.registerUser();
+        this.props.registerUser(this.state.user);
         return;
       }
 

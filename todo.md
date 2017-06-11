@@ -1,19 +1,9 @@
 # Current Todo List
 - - -
 ## Todo
-* [X] Add License.
-* [X] Electron, React, WebPack Hello World.
-* [X] Create top level menu from React component.
-* [X] Window Navigation via React routes.
-* [X] Stub out all menu items.
-* [X] Build Authentication flow.
-* [X] Establish Cockpit logging solution. (console only)
-* [X] Build User Registration flow.
 * [ ] Build reset password flow.
 * [ ] Stub out all Windows & Flows.
 * [ ] Establish code coverage.
-* [X] Establish unit tests.
-* [X] Integrate with Engine Harness.
 * [ ] Create flow orientated acceptance tests.
 * [ ] Establish TLS between Cockpit & Engine.
 * [ ] Create dataset management.
@@ -27,14 +17,24 @@
   * [ ] Generic Context Menu
   * [ ] Create Node.
   * [X] Move Node.
-    * After this is fixed, I need to introduce unit tests.
-    * Then redesign the look and feel to fit the architectural drawings I saw in MOMA.
+
   * [ ] Delete Node.
   * [ ] Associate Nodes.
+* [ ] Redesign the look and feel to fit the architectural drawings I saw in MOMA.
 * [ ] Build first pass at the Content View component.
 * [ ] Build first pass at the find bar.
 * [ ] Build first pass the Table View component.
 * [ ] Build first pass at the Tree Map component.
+* [X] Establish unit tests.
+* [X] Integrate with Engine Harness.
+* [X] Add License.
+* [X] Electron, React, WebPack Hello World.
+* [X] Create top level menu from React component.
+* [X] Window Navigation via React routes.
+* [X] Stub out all menu items.
+* [X] Build Authentication flow.
+* [X] Establish Cockpit logging solution. (console only)
+* [X] Build User Registration flow.
 
 ## Decisions to make.
 * [X] Use a CSS Preprocessor. (Answer: Nope)
