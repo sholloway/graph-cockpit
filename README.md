@@ -6,9 +6,14 @@ Status: Under active development working towards version 0.1.0. Not stable. Do n
 
 ## Getting Started
 ### Dependencies
-* Install npm via node.
-```
+* Install NPM via node.
+```shell
 brew install node
+```
+* Compiling native dependencies against Electron. This needs to be done every
+  time the dependencies are upgraded or new ones added.
+```shell
+./node_modules/.bin/electron-rebuild
 ```
 
 ### Development
@@ -25,13 +30,20 @@ This can be done with two terminals.
   ```
 
 ### NPM Tasks
-| Task     | Description                                          |
-|----------|------------------------------------------------------|
-| list     | List installed npm packages with their dependencies. |
-| outdated | List all installed packages for which a latest version of package is available in npm registry. |
-| start    | Runs the application. Must start the webpack server first via the watch task. |
-| watch    | Compiles the webpack bundle and launchs the webpack dev server. |
-| docs     | Generates the JavaScript documentation. |
+All tasks are run in the form:
+```shell
+npm run <task>
+```  
+
+| Task             | Description                                                                                             |
+|------------------|---------------------------------------------------------------------------------------------------------|
+| list             | List installed NPM packages with their dependencies.                                                    |
+| outdated         | List all installed packages for which a latest version of package is available in NPM registry.         |
+| start-client     | Runs the application in production mode. Must start the WebPack server first via the start-server task. |
+| start-client-dev | Runs the application. Must start the WebPack server first via the start-server task.                    |
+| start-server     | Compiles the WebPack bundle and launches the WebPack dev server.                                        |
+| docs             | Generates the JavaScript documentation.                                                                 |
+| test             | Runs the unit tests.                                                                                    |
 
 ## Development
 ### Updating Dependencies
@@ -66,7 +78,6 @@ This can be done with two terminals.
 * [Videos](https://egghead.io/series/getting-started-with-redux)
 * [React Redux](https://github.com/reactjs/react-redux)
 * [Collection of Redux Resources](https://github.com/xgrommx/awesome-redux)
-
 
 ### JSDoc
 * [Github Page](https://github.com/jsdoc3/jsdoc)

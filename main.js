@@ -12,12 +12,23 @@ const WindowManager = require('./src/windows-manager');
 const AndGateEmitter = require('./src/events/gates/AndGateEmitter');
 const config = require('./src/config.js');
 const spawn = require('child_process').spawn;
+const ENGINE_VERSION = config.engine.version
+const ENTRY_POINT = config.engine.entry_point
 
+/*
+I need to dynamically create and story in the keychain:
+-Dengine.communication.identity_service.session.secret=?..
+-Dengine.communication.webserver.password=<whatever>
+-Dengine.communication.identity_service.password=<whatever>
+*/
 const engineArgs = [`-Dlog-level=${config.engine.logging.level}`,
   `-Dengine.graphdb.path=${config.engine.graphdb.path}`,
+	`-Dengine.communication.identity_service.session.secret=v1r80r3jr3j9em7ocq6hm1bl57o90v7hufj05oc1v7vqjkn7hg5q618jqeknk8hb31rtfeo76qf78lsc4qdnagdllectasb346rk7ehhb9lhnth9vgl0j2gqgg985sj1`,
+	`-Dengine.communication.webserver.password=efg`,
+	`-Dengine.communication.identity_service.password=yabadabadabadoo`,
   '-cp',
-  'machine-engine-assembly-0.1.0-deps.jar:machine-engine-assembly-0.1.0.jar', //Consider having a function in the config build this.
-  'org.machine.engine.Main'];
+  `machine-engine-assembly-${ENGINE_VERSION}-deps.jar:machine-engine-assembly-${ENGINE_VERSION}.jar`,
+  ENTRY_POINT];
 
 const engineWorkingDir = path.join(__dirname, './lib');
 const engineOptions = {

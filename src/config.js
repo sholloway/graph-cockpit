@@ -1,13 +1,25 @@
 module.exports = {
   engine:{
+		version: '0.1.0',
+		entry_point: 'org.machine.engine.Main',
     communication:{
-      //Something to consider: I need the ability to turn on the engine and
-      //tell it what port to listen to. I also want the ability to connect
-      //to a remote engine.
       webserver:{
         host: 'localhost',
-        port: '2324'
-      }
+        port: '2324',
+				user: "engine-websocket-system",
+				protocol: 'engine.json.v1',
+				session:{
+					header: 'X-Session'
+				}
+      },
+			identity_service:{
+				host: 'localhost',
+        port: '3300',
+				user: 'engine-identity-system',
+				session:{
+					header: 'Set-Authorization'
+				}
+			}
     },
     graphdb:{
       path: '/Applications/Mod89\ Machine.app/Contents/db'
