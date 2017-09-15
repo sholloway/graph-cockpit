@@ -6,9 +6,18 @@ Status: Under active development working towards version 0.1.0. Not stable. Do n
 
 ## Getting Started
 ### Dependencies
-* Install NPM via node.
+* Electron has its own install of Node.js. You must use the same version of node
+  as Electron's to run the tests. It is recommended to use something like NVM
+  to manage the Node version.
 ```shell
-brew install node
+git clone <this repo>
+cd graph-cockpit
+brew update
+brew install nvm
+#Follow the brew directions to update your .bash_profile to finish setting up NVM.
+nvm install 7.9.0
+npm install
+./node_modules/.bin/electron-rebuild
 ```
 * Compiling native dependencies against Electron. This needs to be done every
   time the dependencies are upgraded or new ones added.
@@ -71,6 +80,10 @@ npm run <task>
 * [React Components](http://react-components.com/)
 * [React Widgets](https://github.com/jquense/react-widgets)
 * [React Router](https://github.com/reactjs/react-router)
+
+### Testing
+* [Sinon Mocks](http://sinonjs.org/)
+* [Chai Tests](http://chaijs.com/)
 
 ### Redux
 * [Github](https://github.com/reactjs/redux)

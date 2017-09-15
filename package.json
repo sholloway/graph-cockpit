@@ -55,7 +55,7 @@
     "mocha-webpack": "^0.7.0",
     "null-loader": "^0.1.1",
     "react-addons-test-utils": "^15.3.2",
-    "sinon": "^1.17.6",
+    "sinon": "^3.2.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2",

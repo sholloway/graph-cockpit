@@ -14,29 +14,20 @@ const config = require('./src/config.js');
 const spawn = require('child_process').spawn;
 const ENGINE_VERSION = config.engine.version
 const ENTRY_POINT = config.engine.entry_point
-
-/*
-I need to dynamically create and story in the keychain:
--Dengine.communication.identity_service.session.secret=?..
--Dengine.communication.webserver.password=<whatever>
--Dengine.communication.identity_service.password=<whatever>
-*/
-const engineArgs = [`-Dlog-level=${config.engine.logging.level}`,
-  `-Dengine.graphdb.path=${config.engine.graphdb.path}`,
-	`-Dengine.communication.identity_service.session.secret=v1r80r3jr3j9em7ocq6hm1bl57o90v7hufj05oc1v7vqjkn7hg5q618jqeknk8hb31rtfeo76qf78lsc4qdnagdllectasb346rk7ehhb9lhnth9vgl0j2gqgg985sj1`,
-	`-Dengine.communication.webserver.password=efg`,
-	`-Dengine.communication.identity_service.password=yabadabadabadoo`,
-  '-cp',
-  `machine-engine-assembly-${ENGINE_VERSION}-deps.jar:machine-engine-assembly-${ENGINE_VERSION}.jar`,
-  ENTRY_POINT];
-
 const engineWorkingDir = path.join(__dirname, './lib');
-const engineOptions = {
-  cwd: engineWorkingDir // Current working directory of the child process (Engine).
-};
-
 const bootAndGate = new AndGateEmitter();
 const terminateAndGate = new AndGateEmitter();
+const SecretStoreClient = require('./src/secrets/SecretStoreClient')
+const secretStore = new SecretStoreClient("mod89.machine.engine")
+
+let context = {
+	engine: null,
+	secrets:{
+		identityServiceSecret: '',
+		webServerPwd: '',
+		idenityServicePwd: ''
+	}
+}
 
 bootAndGate.on('gate-tripped', launchUI);
 
@@ -44,36 +35,60 @@ terminateAndGate.on('gate-tripped', () => {
   app.quit();
 });
 
-//Spawn a child process for the machine-engine.
-//java -cp machine-engine-assembly-0.1.0-deps.jar:machine-engine-assembly-0.1.0.jar org.machine.engine.Main
-const engine = spawn('java', engineArgs, engineOptions);
+function startEngineAsync(){
+	Promise.all(
+		[secretStore.getOrCreateSecret("identity_service.session.secret", 128, context, 'identityServiceSecret'),
+		secretStore.getOrCreateSecret("webserver.password", 64, context, 'webServerPwd'),
+		secretStore.getOrCreateSecret("identity_service.password", 64, context, 'idenityServicePwd')]
+	).then((values) =>{
+		let engineArgs = [`-Dlog-level=${config.engine.logging.level}`,
+			`-Dengine.graphdb.path=${config.engine.graphdb.path}`,
+			`-Dengine.communication.identity_service.session.secret=${context.secrets.identityServiceSecret}`,
+			`-Dengine.communication.webserver.password=${context.secrets.webServerPwd}`,
+			`-Dengine.communication.identity_service.password=${context.secrets.idenityServicePwd}`,
+			'-cp',
+			`machine-engine-assembly-${ENGINE_VERSION}-deps.jar:machine-engine-assembly-${ENGINE_VERSION}.jar`,
+			ENTRY_POINT];
 
-engine.stdout.on('data', (data) => {
-  var msg = data.toString()
-  switch(msg.trim()){
-    case 'ENGINE_READY':{
-      console.log(`Node Received: ${msg}`);
-      bootAndGate.emit('inputA');
-      break;
-    }
-    default:{
-      console.log(`Node Received: ${msg}`);
-    }
-  }
-});
+		let engineOptions = {
+		  cwd: engineWorkingDir // Current working directory of the child process (Engine).
+		};
 
-engine.stderr.on('data', (data) => {
-  console.log(`Node stderr: ${data}`);
-});
+		context.engine = spawn('java', engineArgs, engineOptions);
 
-engine.on('close', (code) => {
-  console.log(`Node child process exited with code ${code}`);
-  terminateAndGate.emit('inputB');
-});
+		context.engine.stdout.on('data', (data) => {
+		  var msg = data.toString()
+		  switch(msg.trim()){
+		    case 'ENGINE_READY':{
+		      console.log(`Node Received: ${msg}`);
+		      bootAndGate.emit('inputA');
+		      break;
+		    }
+		    default:{
+		      console.log(`Node Received: ${msg}`);
+		    }
+		  }
+		});
+
+		context.engine.stderr.on('data', (data) => {
+		  console.log(`Node stderr: ${data}`);
+		});
+
+		context.engine.on('close', (code) => {
+		  console.log(`Node child process exited with code ${code}`);
+		  terminateAndGate.emit('inputB');
+		});
+	}).catch((e) => {
+		console.log("An error occured while trying to start the engine.")
+		console.log(e)
+	})
+}
+
+startEngineAsync()
 
 function tellEngine(msg){
   console.log(`Sending message: ${msg}`)
-  engine.stdin.write(`${msg}\n`)
+  context.engine.stdin.write(`${msg}\n`)
 }
 
 let centralWindowManager = WindowManager.WindowsManager.instance(__dirname);
@@ -86,6 +101,7 @@ app.on('window-all-closed', () => {
     shutdown();
   }
 });
+
 /*
 So what I need to do here, is to use another AND gate for termination.
 Shutdown sequence:
@@ -106,9 +122,9 @@ app.on('before-quit', (event) => {
 
 function shutdown(){
   terminateAndGate.emit('inputA');
-  engine.stdin.setEncoding('utf-8');
-  engine.stdin.write(`SIGHUP\n`);
-  engine.stdin.end();
+  context.engine.stdin.setEncoding('utf-8');
+  context.engine.stdin.write(`SIGHUP\n`);
+  context.engine.stdin.end();
 }
 
 // This method will be called when Electron has finished

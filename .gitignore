@@ -3,3 +3,5 @@ target
 docs
 .tmp
 *.jar
+coverage
+coverage/*
