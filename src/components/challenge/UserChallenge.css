@@ -27,3 +27,12 @@
   text-transform: uppercase;
   margin-left: 10px;
 }
+
+.userChallenge>.sh-centered-row>a{
+  margin-left: 10px;
+  color: grey;
+}
+
+.userChallenge>.sh-centered-row>a:hover{
+  color: #212121;
+}

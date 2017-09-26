@@ -1,11 +1,7 @@
 # Current Todo List
 - - -
 ## Todo
-* [ ] Build reset password flow.
-* [ ] Stub out all Windows & Flows.
-* [ ] Establish code coverage.
 * [ ] Create flow orientated acceptance tests.
-* [ ] Establish TLS between Cockpit & Engine.
 * [ ] Create dataset management.
   * [ ] New dataset.
   * [ ] Open dataset (into Relationship Explorer)

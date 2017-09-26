@@ -12,25 +12,20 @@ Redesign this module to return a builder function.
 Take the Store as a parameter.
 Bind the store to requireAuth's "this" object.
 Change <Route component={Master} path="/home" onEnter={requireAuth}> to be
-	<Route component={Master} path="/home" onEnter={this.requireAuth}>
+	     <Route component={Master} path="/home" onEnter={this.requireAuth}>
 
 Resources:
 	https://github.com/reactjs/react-router-redux/issues/20
 	https://github.com/joshgeller/react-redux-jwt-auth-example/blob/master/src/components/AuthenticatedComponent.js
-
-
-Just get it to compile.
-Use Dev Tools (?) To set the state.
 */
 
 function requireAuth(nextState, replace){
 	let appState = this.store.getState();
-	// console.log("In onEnter hook for /home");
-	// console.log(appState);
 	if (!appState.authentication.user.authenticated) {
     replace({
       pathname: '/login',
-      state: { nextPathname: nextState.location.pathname } //Note: State is the Router state, not Redux Store.
+			//Note: State is the Router state, not Redux Store.
+      state: { nextPathname: nextState.location.pathname }
     });
 	}
 }
@@ -40,7 +35,8 @@ function userExists(nextState, replace){
 	if (!appState.registration.user.exists) {
     replace({
       pathname: '/register',
-      state: { nextPathname: nextState.location.pathname } //Note: State is the Router state, not Redux Store.
+			//Note: State is the Router state, not Redux Store.
+      state: { nextPathname: nextState.location.pathname }
     });
 	}
 }
@@ -52,7 +48,7 @@ function routes(store){
 	that.userExists = userExists.bind(that);
 	return (
 		<Route>
-			<Route component={LoginScreen} name="Login" path = "/login" onEnter={that.userExists}/>
+			<Route component={LoginScreen} name="Login" path = "/login"/>
 			<Route component={RegisterUserScreen} name="Registration" path = "/register" />
 			<Redirect from="/" to="/home" />
 			<Route component={MainScreen} path="/home" onEnter={that.requireAuth}>

@@ -31,11 +31,11 @@ need to start the server side component and then launch the Electron app.
 This can be done with two terminals.
 1. In a terminal, start the Node.js server side application.
   ```shell
-  npm run hot-deploy
+  npm run start-server
   ```
 2. In a second terminal, start Electron via WebPack development server.
   ```shell
-  npm run start-hot
+  npm run start-client-dev
   ```
 
 ### NPM Tasks

@@ -45,6 +45,9 @@ class UserChallenge extends Component{
 		return(
 			<div className="userChallenge sh-column">
 				<div className="sh-row">
+					<span className="sh-status-message">{this.statusMessage()}</span>
+				</div>
+				<div className="sh-row">
 					<label htmlFor="user-name-txt-field">User Name</label>
 					<input type="text" className="form-control"
 						id="user-name-txt-field"
@@ -63,9 +66,6 @@ class UserChallenge extends Component{
 						required/>
 				</div>
 				<div className="sh-row">
-					<span className="sh-status-message">{this.statusMessage()}</span>
-				</div>
-				<div className="sh-row">
 					<label>
 						<input ref="coreTeamMember"
 							type="checkbox"
@@ -73,6 +73,10 @@ class UserChallenge extends Component{
 					</label>
 					<button className="sh-button sh-clickable"
 						onClick={this.login}>login</button>
+				</div>
+				<div className="sh-centered-row">
+					<a href={this.login}>reset password</a>
+					<a href={this.login}>register new user</a>
 				</div>
 				<Spinner spinning={this.props.authenticating}/>
 			</div>

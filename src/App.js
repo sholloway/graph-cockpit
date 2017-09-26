@@ -1,4 +1,5 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React][Provider]" }]*/
+const config = require('./config.js');
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -7,10 +8,14 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import routes from './routes';
 import configureStore from './store/configureStore';
 
-//TODO: Pull into config file.
+const WEBSOCKET_DOMAIN = config.engine.communication.webserver.host
+const WEBSOCKET_PORT = config.engine.communication.webserver.port
+const WEBSOCKET_PROTOCOL = config.engine.communication.webserver.protocol
+
 //TODO: Change protocol to be wss for TLS.
-//TODO: Pull the websocket config into its own module.
-let websocket = new WebSocket('ws:localhost:2324/ws','engine.json.v1');
+/* TODO: Don't do this until after the Identity Service has been engaged to
+ produce a session token. */
+let websocket = new WebSocket(`ws:${WEBSOCKET_DOMAIN}:${WEBSOCKET_PORT}/ws`,WEBSOCKET_PROTOCOL);
 
 websocket.onopen = () => {
 	store.dispatch({
