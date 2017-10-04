@@ -1,7 +1,6 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React]" }]*/
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import RegistrationHealth, {HEALTH_RENDER_STATE} from '../components/registration/health/RegistrationHealth';
@@ -235,4 +234,4 @@ class RegistrationContainer extends Component{
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RegistrationContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationContainer);

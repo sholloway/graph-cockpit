@@ -1,6 +1,5 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React][ApplicationMenu]" }]*/
 import React, {Component} from 'react';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ApplicationMenu from '../components/menu/ApplicationMenu';

@@ -1,7 +1,6 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React]" }]*/
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { withRouter } from 'react-router';
 import './UserChallenge.css';
 import Spinner from '../spinner/Spinner';
 
@@ -150,4 +149,4 @@ UserChallenge.propTypes = {
 	displayPasswordOptionChanged: PropTypes.func.isRequired,
 	authenticationRequest: PropTypes.func.isRequired
 };
-export default withRouter(UserChallenge);
+export default UserChallenge;
