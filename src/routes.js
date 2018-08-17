@@ -10,47 +10,6 @@ import MainScreen from './containers/MainScreen';
 import GraphExplorer from './components/graph/GraphExplorer';
 import ContentView from './components/contentView/ContentView';
 
-// function requireAuth(nextState, replace){
-// 	let appState = this.store.getState();
-// 	if (!appState.authentication.user.authenticated) {
-//     replace({
-//       pathname: '/login',
-// 			//Note: State is the Router state, not Redux Store.
-//       state: { nextPathname: nextState.location.pathname }
-//     });
-// 	}
-// }
-
-// function userExists(nextState, replace){
-// 	let appState = this.store.getState();
-// 	if (!appState.registration.user.exists) {
-//     replace({
-//       pathname: '/register',
-// 			//Note: State is the Router state, not Redux Store.
-//       state: { nextPathname: nextState.location.pathname }
-//     });
-// 	}
-// }
-
-// react-router approach
-// function routes(store){
-// 	let that = {};
-// 	that.store = store;
-// 	that.requireAuth = requireAuth.bind(that);
-// 	that.userExists = userExists.bind(that);
-// 	return (
-// 		<Route>
-// 			<Route component={LoginScreen} name="Login" path = "/login"/>
-// 			<Route component={RegisterUserScreen} name="Registration" path = "/register" />
-// 			<Redirect from="/" to="/home" />
-// 			<Route component={MainScreen} path="/home" onEnter={that.requireAuth}>
-// 				<Route component={GraphExplorer} path="/home/explorer" />
-// 				<Route component={ContentView} path="/home/contents" />
-// 			</Route>
-// 		</Route>
-// 	);
-// }
-
 export const components = {
 	'register': RegisterUserScreen,
 	'login': LoginScreen,
@@ -83,14 +42,39 @@ export default function configureRouter(){
 		defaultRoute: 'main'
 	};
 
-	//Perhaps rewrite this as a nested function for clarity.
-	const isAuthenticated = (router) => (toState, fromState) => {
-    return true;
+	function isAuthenticated(state){
+		console.log('The state passed to isAuthenticated:');
+		console.log(state);
+		/*
+		Bug:
+		Right now this is null.
+		When the app loads, there is no fromState. So it should prevent the user from
+		navigating to home.
+		*/
+		return true;
+	}
+
+	const requireAuthentication = (router) => (toState, fromState, done) => {
+		// if (isAuthenticated(store.getState())){
+		if (isAuthenticated(fromState)){
+			return true;
+		}else{
+			const result = {
+				redirect: {
+					name: 'login',
+					params:{
+						nextName: toState.name,
+						nextParams: toState.params
+					}
+				}
+			};
+			return done(result);
+		}
 	};
 
 	const router = createRouter(routes, routerOptions);
 	router.usePlugin(loggerPlugin);
 	router.usePlugin(listenersPlugin());
-	router.canActivate('main', isAuthenticated);
+	router.canActivate('main', requireAuthentication);
 	return router;
 }

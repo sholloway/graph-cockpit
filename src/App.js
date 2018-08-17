@@ -53,9 +53,6 @@ let websocket = {}; //Not used while attempting to wire up router5.
 // 	});
 // };
 
-//TODO: Pull App into its own module.
-
-
 let router = configureRouter();
 let initialState = {};
 const rootReducer = createRootReducer();
