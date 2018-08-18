@@ -23,7 +23,7 @@
   ],
   "author": "Samuel D. Holloway",
   "license": "MIT",
-  "private": "true",
+  "private": true,
   "bugs": {
     "url": "https://github.com/sholloway/graph-cockpit/issues"
   },
