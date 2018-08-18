@@ -1,0 +1,16 @@
+# See http://about.travis-ci.org/docs/user/build-configuration/
+language: node_js
+node_js:
+   - 8.9.3
+branches:
+  only:
+    - ci
+    - dev
+    - master
+notifications:
+  email:
+    recipients:
+      - sholloway@gmail.com
+jdk:
+  - oraclejdk8
+script: sbt ++$TRAVIS_SCALA_VERSION test
