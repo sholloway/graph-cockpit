@@ -20,7 +20,7 @@ class CanvasContextMenu extends Component{
 	//This component does not add anything to the DOM.
 	render(){
 		if(this.props.displayContextMenu){
-			this.generatedMenu.popup();
+			this.generatedMenu.popup({});
 		}
 		return false;
 	}

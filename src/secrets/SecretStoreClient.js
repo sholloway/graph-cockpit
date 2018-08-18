@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const keytar = require('keytar')
 
+
 class SecretStoreClient{
 	constructor(serviceName){
 		this.serviceName = serviceName
