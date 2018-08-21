@@ -30,7 +30,12 @@ module.exports = {
 				include:[path.resolve(__dirname, "src")],
 				use: [
 					{ loader: 'style-loader' }, //Adds CSS to the DOM by injecting a <style> tag.
-					{ loader: 'css-loader' }    //Interpets @import and url() and resolves them.
+					{ //Interpets @import and url() and resolves them.
+						loader: 'css-loader',
+						options:{
+							modules: true //Enable CSS Modules
+						}
+					}
 					//I'd like to leverate PostCSS's style-guide plugin.
 					//https://webpack.js.org/loaders/postcss-loader/
 					//https://github.com/morishitter/postcss-style-guide

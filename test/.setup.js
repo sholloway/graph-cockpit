@@ -1,17 +1,12 @@
 require('babel-polyfill');
 require('babel-register')({
-  presets: ["babel-preset-env",
-    "babel-preset-react"],
-  extensions: [".jsx", ".js"],
+  presets: [
+		"babel-preset-env",
+		"babel-preset-react"
+	],
+	extensions: [".jsx", ".js"],
   plugins: [
-    ["babel-plugin-rewire"],
-		[
-			"webpack-loaders",
-			{
-				"config": "webpack.config-test.babel.js",
-				"verbose": false
-			}
-		]
+    ["babel-plugin-rewire"]
   ]
 });
 

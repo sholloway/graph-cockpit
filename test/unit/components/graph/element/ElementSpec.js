@@ -1,15 +1,19 @@
 global['Electron'] = require('electron');
 import React from 'react';
 import { expect } from 'chai';
-import { mount, shallow } from 'enzyme';
+import { configure, mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import Element from '../../../../../src/components/graph/element/Element';
 import {ElementRenderStates} from '../../../../../src/constants/elementRenderStates';
 
-Element.__Rewire__('ElementContextMenu', React.createClass({
-    render: function() { return <div></div>; },
-    componentWillMount: function(){}
-}));
+import EnzymeReactAdaptor from 'enzyme-adapter-react-16';
+configure({ adapter: new EnzymeReactAdaptor() });
+
+class FakeContextMenu extends React.Component{
+	render() { return <div></div>; }
+}
+
+Element.__Rewire__('ElementContextMenu', FakeContextMenu);
 
 describe('<Element />', () => {
   let props;
@@ -70,5 +74,5 @@ describe('<Element />', () => {
     const wrapper = mount(<Element {...props}/>);
     wrapper.find('rect').simulate('contextMenu');
     expect(props.handleOnRightClick.callCount).to.equal(0);
-  });
+	});
 });
