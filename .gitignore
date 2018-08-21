@@ -1,7 +1,13 @@
+# Don't include Node.js Modules
 node_modules
-target
-docs
-.tmp
+
+# Don't include Java libraries.
 *.jar
+
+# Ignore Generated Content
+.tmp
+docs
+target
 coverage
 coverage/*
+public/graph-cockpit/

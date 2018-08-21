@@ -1,5 +1,6 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React]" }]*/
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import './GraphStandardLayout.css';
 import Element, {ElementRenderStates} from '../element/Element.js';

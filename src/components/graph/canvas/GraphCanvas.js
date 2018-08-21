@@ -1,12 +1,13 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[React]" }]*/
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import './GraphCanvas.css';
 import CanvasContextMenu from './CanvasContextMenu.js';
 
 class GraphCanvas extends Component{
 	constructor(props) {
-    super(props);		
+    super(props);
 	}
 
 	componentWillMount (){

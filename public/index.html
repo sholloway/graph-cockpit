@@ -8,7 +8,14 @@
   </head>
   <body>
     <div id="root"></div>
-    <script src="http://localhost:8080/webpack-dev-server.js"></script>
-    <script src="http://localhost:8080/built/app.js"></script>
+    <!--
+			Need to figure out a solution for live reloading for development.
+			Originally, I was using the webpack-dev-server. That is deprecated
+			and this solution was never going to work for bundling as an Electron app.
+			<script src="http://localhost:8080/webpack-dev-server.js"></script>
+			<script src="http://localhost:8080/built/app.js"></script>
+		-->
+
+		<script type="application/javascript" src="./graph-cockpit/app.js"></script>
   </body>
 </html>
