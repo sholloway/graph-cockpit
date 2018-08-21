@@ -2,34 +2,42 @@ let nodeExternals = require('webpack-node-externals');
 let path = require('path');
 
 module.exports = {
-  target: 'node', // in order to ignore built-in modules like path, fs, etc.
+  target: 'node',
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js$/,
-        loader: "babel-loader",
-        exclude: /node_modules/,
-        query: {
-          presets: ['react', 'es2015']
+				test: /\.jsx?$/, //Transform both Javascript and React JSX files.
+				include:[path.resolve(__dirname, "src")],
+				loader: 'babel-loader',
+        options: {
+          presets: ['react', 'env']
         }
       },
-      { test: /\.css$/, loader: 'null' },
-      { test: /\.less$/, loader: 'null'}
+      {
+				test: /\.css$/,
+				include:[path.resolve(__dirname, "src")],
+				use: [
+					{ loader: 'style-loader' }, //Adds CSS to the DOM by injecting a <style> tag.
+					{ loader: 'css-loader' }    //Interpets @import and url() and resolves them.
+					//I'd like to leverate PostCSS's style-guide plugin.
+					//https://webpack.js.org/loaders/postcss-loader/
+					//https://github.com/morishitter/postcss-style-guide
+				]
+			}
     ]
   },
-  resolve: { fallback: path.join(__dirname, "node_modules") },
+  resolve: {
+		modules: [
+      "node_modules"
+		],
+		extensions: [".js", ".json", ".jsx", ".css"],
+	},
   externals: [
-    nodeExternals(), // in order to ignore all modules in node_modules folder
-    (function(){
-      var IGNORES = [
-        'electron'
-      ];
-      return function(context, request, callback){
-        if (IGNORES.indexOf(request) >= 0) {
-          return callback(null, "require('" + request + "')");
-        }
-        return callback();
-      };
-    })()
-  ]
+    function (context, request, callback) {
+			if (skipModules.includes(request)) {
+				return callback(null, "require('" + request + "')");
+			}
+			return callback();
+    }
+	],
 };

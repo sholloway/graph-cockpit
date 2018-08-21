@@ -1,6 +1,4 @@
-const webpack = require('webpack');
 const path = require('path');
-
 const environment = (process.env.NODE_ENV)? process.env.NODE_ENV : 'development';
 const devTools = (environment === 'development')? 'source-map' : null;
 const skipModules = [
@@ -37,10 +35,12 @@ module.exports = {
 					//https://webpack.js.org/loaders/postcss-loader/
 					//https://github.com/morishitter/postcss-style-guide
 				]
-			},
+			}
     ]
 	},
-  plugins: [],
+  plugins: [
+		new CleanWebpackPlugin(['public/graph-cockpit'])
+	],
   resolve: {
 		modules: [
       "node_modules",
