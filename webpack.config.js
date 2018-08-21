@@ -30,10 +30,6 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
-    // new webpack.IgnorePlugin(new RegExp("^(fs|ipc)$")),
-    // new webpack.optimize.CommonsChunkPlugin(
-    //     "vendors", /* chunkName */
-    //     "vendors.js" /* filename */)
   ],
   resolve: { fallback: path.join(__dirname, "node_modules") },
   externals: [
